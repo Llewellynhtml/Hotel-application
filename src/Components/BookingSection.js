@@ -4,7 +4,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import CurrencyInput from "react-currency-input-field";
 import "./booking.css";
 
-
 function BookingSection() {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
@@ -24,13 +23,14 @@ function BookingSection() {
       <div className="horizontal-input-group">
         <div className="date-picker-trigger">
           <label>Select Dates:</label>
-          <select
-            onFocus={() => setShowDatePicker(true)}
-            onBlur={() => setShowDatePicker(false)}
-            className="date-picker-dropdown"
+          <button
+            onClick={() => setShowDatePicker((prev) => !prev)}
+            className="date-picker-toggle"
           >
-            <option value="">Check-in / Check-out</option>
-          </select>
+            {startDate && endDate
+              ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+              : "Check-in / Check-out"}
+          </button>
 
           {showDatePicker && (
             <div className="date-picker-currency">

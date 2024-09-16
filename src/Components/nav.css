@@ -1,87 +1,126 @@
-
+/* Navbar container */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #ccc;
+  background-color: #fff; /* Adjust background color as needed */
+  border-bottom: 1px solid #ddd; /* Optional border for separation */
 }
 
+/* Left section (icons) */
 .nav-left {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Space between icons and buttons */
+}
+
+.nav-icon {
+  font-size: 20px; /* Adjust icon size as needed */
+  color: #333; /* Icon color */
+}
+
+/* Center section (logo) */
+.nav-center {
+  flex: 1; /* Takes up available space to center logo */
+  display: flex;
+  justify-content: center;
+}
+
+/* Right section (Book Now button) */
+.nav-right {
   display: flex;
   align-items: center;
 }
 
-.nav-left .nav-icon {
-  margin-right: 10px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.newsletter-btn {
-  margin-left: 10px;
-  padding: 5px 10px;
-  background-color: #080808;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.newsletter-btn:hover {
-  background-color: #0056b3;
-}
-
-.nav-center {
-  text-align: center;
-}
-
-.logo {
-  height: 50px;
-}
-
-.nav-right {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .book-now {
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none;
   padding: 10px 20px;
-  background-color: #080808;
-  color: #fff;
-  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 4px;
 }
 
-.book-now:hover {
-  background-color: #e55342;
-}
-
-
+/* Divider line */
 .divider {
+  border: 0;
+  border-top: 1px solid #ddd;
   margin: 0;
-  border: none;
-  height: 1px;
-  background-color: #ccc;
 }
 
-/* Secondary Navbar Styles */
+/* Secondary navigation */
 .secondary-nav {
   display: flex;
   justify-content: center;
-  background-color: #f8f9fa;
+  gap: 20px; /* Space between links */
+  background-color: #f8f9fa; /* Background color for secondary nav */
   padding: 10px 0;
 }
 
 .secondary-link {
-  margin: 0 15px;
   text-decoration: none;
-  color: #007BFF;
-  font-size: 16px;
+  color: #333; /* Link color */
+  font-size: 16px; /* Font size for links */
 }
 
 .secondary-link:hover {
-  text-decoration: underline;
+  text-decoration: underline; /* Underline on hover */
+}
+
+/* Dropdown styles */
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  width: 200px; /* Adjust width as needed */
+}
+
+.dropdown-item {
+  position: relative;
+}
+
+.dropdown-submenu {
+  display: none; /* Hide by default */
+  background-color: #f9f9f9;
+  border-left: 1px solid #ddd;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 200px; /* Adjust width as needed */
+}
+
+.dropdown-link {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.dropdown-link:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show submenu on hover */
+.dropdown-item:hover .dropdown-submenu {
+  display: block;
+}
+
+/* Button styles */
+.dropdown-link, .dropdown-submenu button {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px;
+  cursor: pointer;
+  color: #333;
+}
+
+.dropdown-link:hover, .dropdown-submenu button:hover {
+  background-color: #ddd;
 }

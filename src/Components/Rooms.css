@@ -1,0 +1,11 @@
+.First-line{
+display: flex;
+gap: 400px;
+}
+
+.second-line{
+    display: flex;
+    gap: 300px;
+
+}
+    

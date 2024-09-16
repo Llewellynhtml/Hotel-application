@@ -41,7 +41,6 @@ function Navbar() {
           Offers
         </Link>
 
-        
         <div className="dropdown">
           <button
             className="secondary-link accommodation-link"
@@ -52,69 +51,22 @@ function Navbar() {
           {showAccommodationDropdown && (
             <div className="dropdown-content">
               <div className="dropdown-item">
-                <Link to="/accommodation/rooms" className="dropdown-link">
+                <Link
+                  to="/accommodation/rooms"
+                  className="dropdown-link"
+                  onClick={() => setShowAccommodationDropdown(false)}
+                >
                   Rooms
                 </Link>
-                <div className="dropdown-submenu">
-                  {/* Rooms list */}
-                  <Link to="/accommodation/rooms/room1" className="dropdown-link">
-                    Room 1
-                  </Link>
-                  <Link to="/accommodation/rooms/room2" className="dropdown-link">
-                    Room 2
-                  </Link>
-                  <Link to="/accommodation/rooms/room3" className="dropdown-link">
-                    Room 3
-                  </Link>
-                  <Link to="/accommodation/rooms/room4" className="dropdown-link">
-                    Room 4
-                  </Link>
-                  <Link to="/accommodation/rooms/room5" className="dropdown-link">
-                    Room 5
-                  </Link>
-                  <Link to="/accommodation/rooms/room6" className="dropdown-link">
-                    Room 6
-                  </Link>
-                  <Link to="/accommodation/rooms/room7" className="dropdown-link">
-                    Room 7
-                  </Link>
-                  <Link to="/accommodation/rooms/room8" className="dropdown-link">
-                    Room 8
-                  </Link>
-                  <Link to="/accommodation/rooms/room9" className="dropdown-link">
-                    Room 9
-                  </Link>
-                  <Link to="/accommodation/rooms/room10" className="dropdown-link">
-                    Room 10
-                  </Link>
-                </div>
               </div>
-
               <div className="dropdown-item">
-                <Link to="/accommodation/suites" className="dropdown-link">
+                <Link
+                  to="/accommodation/suites"
+                  className="dropdown-link"
+                  onClick={() => setShowAccommodationDropdown(false)}
+                >
                   Suites
                 </Link>
-                <div className="dropdown-submenu">
-                  
-                  <Link to="/accommodation/suites/suite1" className="dropdown-link">
-                    Suite 1
-                  </Link>
-                  <Link to="/accommodation/suites/suite2" className="dropdown-link">
-                    Suite 2
-                  </Link>
-                  <Link to="/accommodation/suites/suite3" className="dropdown-link">
-                    Suite 3
-                  </Link>
-                  <Link to="/accommodation/suites/suite4" className="dropdown-link">
-                    Suite 4
-                  </Link>
-                  <Link to="/accommodation/suites/suite5" className="dropdown-link">
-                    Suite 5
-                  </Link>
-                  <Link to="/accommodation/suites/suite6" className="dropdown-link">
-                    Suite 6
-                  </Link>
-                </div>
               </div>
             </div>
           )}
