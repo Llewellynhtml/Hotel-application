@@ -1,0 +1,29 @@
+.flex-Spa {
+  background-color: rgba(251, 248, 248, 0.254);
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  gap: 100px;
+  margin-top: 100px;
+  padding-left: 250px;
+}
+
+.Strength-img {
+  width: 80%;
+  height: 70%;
+}
+
+.paragraph {
+  text-align: left;
+  width: 100%;
+  padding-left: 100px;
+  justify-content: right;
+  font-size: 22px;
+}
+
+.Spa-btn {
+  background-color: rgb(78, 74, 74);
+  color: white;
+  font-size: 25px;
+  text-align: left;
+}

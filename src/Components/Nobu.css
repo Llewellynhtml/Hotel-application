@@ -1,0 +1,38 @@
+.Nobu{
+background-image: url(./data/Nobu.jpg);
+height: 1300px;
+background-repeat: no-repeat;
+background-size: cover;
+background-attachment: fixed;
+display: flex;
+flex-direction: column;
+margin-top: 50px;
+
+}
+
+
+
+.Parent-Gold{
+    height: 90%;
+    width: 50%;
+    display: flex;
+    gap: 150px;
+    margin-top: 500px;
+    padding-right: 500px;
+    background-color: white;
+
+}
+
+.Parent-Gold-2{
+margin-top: 190px;
+}
+
+.Delight-text{
+    width: 400px;
+    font-size: 20px;
+}
+
+.Delight-btn{
+    font-size: 25px;
+    color: rgb(11, 11, 11);
+}

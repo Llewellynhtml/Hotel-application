@@ -1,0 +1,17 @@
+.landscape-image{
+    background-image: url(./data/Landscape\ exterior.jpg);
+    height: 1500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    margin-top: 200px;
+    justify-content: end;
+}
+
+.video-btn{
+    height: 50px;
+  
+
+}

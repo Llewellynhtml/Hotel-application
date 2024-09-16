@@ -1,0 +1,72 @@
+@keyframes moveImage {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(20px);
+  }
+}
+
+.mothercity-image.move {
+  animation: moveImage 0.5s ease forwards;
+}
+
+.mothercity {
+  padding: 30px;
+  background-color: #FFFFFF(0, 100%, 99%);
+  margin: 20px auto;
+  max-width: 1200px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(248, 248, 248, 0);
+}
+
+.mothercity-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.mothercity-text {
+  flex: 1;
+  text-align: left;
+}
+
+.mothercity-title {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.mothercity-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  max-width: 600px;
+}
+
+.mothercity-button {
+  padding: 10px 20px;
+  background-color: #0a0a0a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.mothercity-button:hover {
+  background-color: #0056b3;
+}
+
+.mothercity-image-container {
+  flex: 1;
+  max-width: 50%;
+}
+
+.mothercity-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}

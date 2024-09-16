@@ -1,0 +1,22 @@
+.flex-container{
+background-color: rgba(192, 192, 192, 0.14);
+display: flex;
+justify-content: center;
+text-align: center;
+gap: 300PX;
+}
+
+.Zero img{
+height: 380px;
+padding: 5px;
+margin-bottom: 10px;
+}
+
+.text{
+    font-size: 20px;
+}
+
+.boox{
+background-color: rgb(214, 203, 203);
+color: rgb(9, 9, 9);
+}

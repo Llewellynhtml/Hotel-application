@@ -1,0 +1,33 @@
+
+.hero-image {
+    background-image: url(./Pictures/1725435863875.png);
+    height: 1000px; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    color: rgb(255, 253, 253);
+    text-align:left;
+  }
+  
+  .hero-text {
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .hero-text h1 {
+    font-size: 30px; 
+  }
+  
+  .hero-text p {
+    font-size: 15px;
+  }
+
+  .palm-tree{
+width: 1000px;
+
+  }
+  
+  

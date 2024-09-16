@@ -1,0 +1,116 @@
+.slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background-color: hsl(0, 100%, 100%);
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-content {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+  max-width: 1200px; /* Adjusts the max width of the slider for desktop */
+}
+
+.slide {
+  flex: 0 0 calc(33.33% - 16px); /* Ensures three images fit with spacing */
+  margin: 0 8px; /* Equal margins for consistent spacing */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.slider-image {
+  width: 100%;
+  height: auto; /* Adjust height to fit within the container */
+  aspect-ratio: 16 / 9; /* Maintains a consistent aspect ratio */
+  object-fit: cover; /* Ensures images are equally sized without distortion */
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.slider-text {
+  text-align: center;
+  margin-top: 8px;
+  color: #020202;
+}
+
+.slider-title {
+  font-size: 1.2rem;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #050505;
+}
+
+.slider-description {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  line-height: 1.4;
+  color: #0d0d0d;
+}
+
+.slider-button-link {
+  display: inline-block;
+  padding: 8px 14px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.slider-button-link:hover {
+  background-color: #555;
+}
+
+.slider-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.slider-button.prev {
+  left: 20px;
+}
+
+.slider-button.next {
+  right: 20px;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.pagination-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #bbb;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-dot.active {
+  background-color: #fff;
+}
