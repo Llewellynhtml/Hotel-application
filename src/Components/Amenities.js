@@ -17,7 +17,7 @@ import './Amenities.css';
 
 const Amenities = () => {
   return (
-    <div className='Amenities'>
+    <div className='Amenities'>g
       <div>
         <BalconyIcon style={{ fontSize: 40 }} />
         <p>Balcony</p>
