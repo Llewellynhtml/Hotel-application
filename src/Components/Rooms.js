@@ -1,38 +1,36 @@
-import React from "react";
-import "./Rooms.css";
-import roomz from "./data/OO_CapeTown_IslandSuite-_Bedroom_080_HR.jpg";
-import Amenities from "./Amenities";
+import React from 'react';
+import { roomData  } from './roomData'; // Import data instead of roomData
+import './Rooms.css'; // Import CSS for styling
 
 const Rooms = () => {
   return (
-    <div className="Marina-Rooms">
-      <div className="img-marina">
-        <h1>One Bedroom Marina Suite</h1>
-        <img src={roomz} alt="room" />
-        <div className="First-line">
-          <h3>
-            View:<p>Mountain</p>
-          </h3>
-
-          <h3>
-            size:<p>123qm/1323 sqft</p>
-          </h3>
-        </div>
-        <div className="second-line">
-          <h3>
-            OCCUPANCY:<p>Sleeps 3</p>
-          </h3>
-
-          <h3>
-            BEDDING:<p>1kings Bed</p>
-          </h3>
+    <section className="rooms-section">
+      <div className="container">
+        <div className="rooms-grid">
+          {roomData.map((room) => (
+            <div className="room-card" key={room.id}>
+              <img src={room.image} alt={room.name} className="room-image" />
+              <div className="room-details">
+                <h3 className="room-name">{room.name}</h3>
+                <p className="room-description">{room.description}</p>
+                <ul className="room-facilities">
+                  {room.facilities.map((facility, index) => (
+                    <li key={index}>
+                      {facility.icon} {facility.name}
+                    </li>
+                  ))}
+                </ul>
+                <div className="room-info">
+                  <p>Size: {room.size} m²</p>
+                  <p>Max Persons: {room.maxPerson}</p>
+                  <p className="room-price">${room.price} / night</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <div>
-     <Amenities/>
-      </div>
-      <div></div>
-    </div>
+    </section>
   );
 };
 
