@@ -1,0 +1,119 @@
+
+.payment-method-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .payment-method-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .payment-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .payment-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .payment-form input,
+  .payment-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .payment-form .expiry-date {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .payment-form .expiry-date div {
+    flex: 0 0 48%;
+  }
+  
+  .submit-payment-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .submit-payment-btn:hover {
+    background-color: #218838;
+  }
+  
+
+  .payment-method-container {
+    padding: 20px;
+  }
+  
+  .payment-form {
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .payment-method-icons {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .payment-icon {
+    width: 50px;
+    height: auto;
+    margin: 0 10px;
+  }
+  
+  .payment-method-container {
+    padding: 20px;
+  }
+  
+  .payment-form {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .expiry-date {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .payment-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .payment-icon {
+    width: 40px;
+    height: auto;
+  }
+  
+  .submit-payment-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+  }
+  
