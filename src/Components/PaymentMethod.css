@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 .payment-method-container {
     max-width: 600px;
@@ -76,6 +77,18 @@
     margin: 0 10px;
   }
   
+=======
+.payment-icons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .payment-icon {
+    font-size: 24px;
+    color: #333;
+  }
+>>>>>>> dbddb416f4d75197be7b9f266504af2570212d32
   .payment-method-container {
     padding: 20px;
   }
@@ -116,4 +129,8 @@
     margin: 10px 2px;
     cursor: pointer;
   }
+<<<<<<< HEAD
   
+=======
+  
+>>>>>>> dbddb416f4d75197be7b9f266504af2570212d32

@@ -21,7 +21,11 @@ function BookingSection({ roomId, roomName, roomPrice }) {
   const decrementChildren = () => children > 0 && setChildren(children - 1);
 
   const handleReservation = () => {
+<<<<<<< HEAD
     
+=======
+    // Pass booking data to the reservation page
+>>>>>>> dbddb416f4d75197be7b9f266504af2570212d32
     navigate(`/reservation`, {
       state: {
         roomId,
@@ -32,7 +36,11 @@ function BookingSection({ roomId, roomName, roomPrice }) {
         adults,
         children,
         currencyType,
+<<<<<<< HEAD
         totalPrice: roomPrice * (endDate - startDate) / (1000 * 60 * 60 * 24), 
+=======
+        totalPrice: roomPrice * (endDate - startDate) / (1000 * 60 * 60 * 24), // calculate price based on the number of days
+>>>>>>> dbddb416f4d75197be7b9f266504af2570212d32
       },
     });
   };

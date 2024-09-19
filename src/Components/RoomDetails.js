@@ -35,7 +35,11 @@ const RoomDetails = () => {
           </div>
         </div>
 
+<<<<<<< HEAD
         
+=======
+        {/* Booking Section */}
+>>>>>>> dbddb416f4d75197be7b9f266504af2570212d32
         <BookingSection roomId={room.id} roomName={room.name} roomPrice={room.price} />
       </div>
     </section>
