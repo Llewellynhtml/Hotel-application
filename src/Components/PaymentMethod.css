@@ -1,0 +1,51 @@
+.payment-icons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .payment-icon {
+    font-size: 24px;
+    color: #333;
+  }
+  .payment-method-container {
+    padding: 20px;
+  }
+  
+  .payment-form {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .expiry-date {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .payment-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .payment-icon {
+    width: 40px;
+    height: auto;
+  }
+  
+  .submit-payment-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+  }
+  
