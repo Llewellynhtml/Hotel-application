@@ -1,13 +1,31 @@
-import React from 'react';
-import { roomData } from './roomData'; // Import data instead of roomData
-import './Rooms.css'; // Import CSS for styling
+import React, { useEffect } from 'react';
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "../Redux/dbslice"; 
+import './Rooms.css';
 
 const Rooms = () => {
+  const { data, error, loading } = useSelector((state) => state.data || {});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <section className="rooms-section">
       <div className="container">
         <div className="rooms-grid">
-          {roomData.map((room) => (
+          {data.map((room) => (
             <div className="room-card" key={room.id}>
               <img src={room.image} alt={room.name} className="room-image" />
               <div className="room-details">
@@ -25,10 +43,13 @@ const Rooms = () => {
                   <p>Max Persons: {room.maxPerson}</p>
                   <p className="room-price">${room.price} / night</p>
                 </div>
-
                 <div className="room-actions">
-                  <a href={`/rooms/${room.id}`} className="view-room-btn">View Room</a>
-                  <a href={`/book/${room.id}`} className="book-room-btn">Book Now</a>
+                  <button onClick={() => navigate(`/rooms/${room.id}`)} className="view-room-btn">
+                    View Room
+                  </button>
+                  <button onClick={() => navigate(`/book/${room.id}`)} className="book-room-btn">
+                    Book Now
+                  </button>
                 </div>
               </div>
             </div>

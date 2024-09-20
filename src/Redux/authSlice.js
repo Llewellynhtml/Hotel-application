@@ -1,29 +1,49 @@
-import { createSlice } from '@reduxjs/toolkit' ;
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: 0,
-}
+  user: null,
+  loading: false,
+  error: null,
+};
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
+    signInStart: (state) => {
+      state.loading = true;
+      state.error = null;
     },
-    decrement: (state) => {
-      state.value -= 1
+    signInSuccess: (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
     },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
+    signInFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    signUpStart: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    signUpSuccess: (state, action) => {
+      state.loading = false;
+      state.user = action.payload;
+    },
+    signUpFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
     },
   },
-})
+});
 
-export const { increment, decrement, incrementByAmount } = authSlice.actions
+export const { 
+  signInStart, 
+  signInSuccess, 
+  signInFailure, 
+  signUpStart, 
+  signUpSuccess, 
+  signUpFailure 
+} = authSlice.actions;
 
-export default authSlice.reducer
+export default authSlice.reducer;

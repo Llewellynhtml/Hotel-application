@@ -20,12 +20,30 @@ function BookingSection({ roomId, roomName, roomPrice }) {
   const incrementChildren = () => setChildren(children + 1);
   const decrementChildren = () => children > 0 && setChildren(children - 1);
 
+  const handleDateChange = (dates) => {
+    const [start, end] = dates;
+    if (start && end && start > end) {
+      alert("End date must be after start date.");
+      return;
+    }
+    setStartDate(start);
+    setEndDate(end);
+  };
+
   const handleReservation = () => {
-<<<<<<< HEAD
+    if (!startDate || !endDate) {
+      alert("Please select both start and end dates.");
+      return;
+    }
     
-=======
-    // Pass booking data to the reservation page
->>>>>>> dbddb416f4d75197be7b9f266504af2570212d32
+    const numberOfDays = (endDate - startDate) / (1000 * 60 * 60 * 24);
+    if (numberOfDays <= 0) {
+      alert("End date must be after start date.");
+      return;
+    }
+
+    const totalPrice = roomPrice * numberOfDays;
+
     navigate(`/reservation`, {
       state: {
         roomId,
@@ -36,11 +54,7 @@ function BookingSection({ roomId, roomName, roomPrice }) {
         adults,
         children,
         currencyType,
-<<<<<<< HEAD
-        totalPrice: roomPrice * (endDate - startDate) / (1000 * 60 * 60 * 24), 
-=======
-        totalPrice: roomPrice * (endDate - startDate) / (1000 * 60 * 60 * 24), // calculate price based on the number of days
->>>>>>> dbddb416f4d75197be7b9f266504af2570212d32
+        totalPrice,
       },
     });
   };
@@ -52,11 +66,7 @@ function BookingSection({ roomId, roomName, roomPrice }) {
           <label>Select Dates:</label>
           <DatePicker
             selected={startDate}
-            onChange={(dates) => {
-              const [start, end] = dates;
-              setStartDate(start);
-              setEndDate(end);
-            }}
+            onChange={handleDateChange}
             startDate={startDate}
             endDate={endDate}
             selectsRange
