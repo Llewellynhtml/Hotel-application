@@ -33,13 +33,17 @@ export default dataSlice.reducer;
 export const fetchData = () => async (dispatch) => {
   dispatch(setLoading());
   try {
-    const querySnapshot = await getDocs(collection(db, "Rooms")); 
+    const querySnapshot = await getDocs(collection(db, "rooms")); 
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
+
+    console.log("Fetched data from Firestore: ", data); // Log the fetched data
     dispatch(setData(data)); 
   } catch (error) {
+    console.error("Error fetching data: ", error);
     dispatch(setError(error.message));
   }
 };
+

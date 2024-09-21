@@ -26,6 +26,8 @@ const Reservation = () => {
   const [departureTime, setDepartureTime] = useState("");
   const [specialRequests, setSpecialRequests] = useState("");
 
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     

@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authSlice';
+import dbslice from './dbslice';  
 
 export const store = configureStore({
-  reducer: { // Use "reducer" key here
-    auth: authReducer, // Add auth reducer
+  reducer: {
+    db: dbslice, 
   },
 });
 
