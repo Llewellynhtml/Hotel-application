@@ -6,22 +6,20 @@ import "./RoomDetails.css";
 import BookingSection from "./BookingSection";
 
 const RoomDetails = () => {
-  const { id } = useParams(); // Get room ID from the URL
-  const [room, setRoom] = useState(null);
+  const { id } = useParams();
+  const [room, setRoom] = useState(null);  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRoomDetails = async () => {
       console.log("Fetching room with ID:", id);
       try {
-        const roomRef = doc(db, "Rooms", id); // Reference to the room in Firestore
-        const roomSnap = await getDoc(roomRef); // Fetch the room data
+        const roomRef = doc(db, "Rooms", id);  
+        const roomSnap = await getDoc(roomRef);  
         if (roomSnap.exists()) {
           console.log("Room data:", roomSnap.data());
-          setRoom({ id: roomSnap.id, ...roomSnap.data() }); // Set room data in state
+          setRoom({ id: roomSnap.id, ...roomSnap.data() });  
           setLoading(false);
         } else {
           setError("Room not found");
@@ -33,20 +31,20 @@ const RoomDetails = () => {
         setLoading(false);
       }
     };
-    
+
     fetchRoomDetails();
   }, [id]);
 
   if (loading) {
-    return <h2>Loading...</h2>; // Show loading spinner or text
+    return <h2>Loading...</h2>;
   }
 
   if (error) {
-    return <h2>{error}</h2>; // Show error message if any
+    return <h2>{error}</h2>;
   }
 
   if (!room) {
-    return <h2>Room not found</h2>; // Show error if room is not found
+    return <h2>Room not found</h2>;  
   }
 
   return (
@@ -54,32 +52,28 @@ const RoomDetails = () => {
       <div className="container">
         <div className="room-details-card">
           <img
-            src={room.imageLg} // Large room image
-            alt={room.name}
+            src={room.image || "default-image-url.jpg"}  
+            alt={room.name || "Room"} 
             className="room-details-image"
           />
           <div className="room-details-content">
-            <h2 className="room-details-name">{room.name}</h2>
-            <p className="room-details-description">{room.description}</p>
+            <h2 className="room-details-name">{room.name || "Room Name"}</h2>  
+            <p className="room-details-description">{room.description || "No description available."}</p>
             <ul className="room-details-facilities">
-              {room.facilities.map((facility, index) => (
-                <li key={index}>
-                  {facility.icon} {facility.name}
-                </li>
-              ))}
+            
             </ul>
             <div className="room-info">
-              <p>Size: {room.size} m²</p>
-              <p>Max Persons: {room.maxPerson}</p>
-              <p className="room-price">${room.price} / night</p>
+              <p>Size: {room.size || "N/A"} m²</p>  
+              <p>Max Persons: {room.maxPerson || "N/A"}</p> 
+              <p className="room-price">R{room.price || "N/A"} / night</p>  
             </div>
           </div>
         </div>
 
         <BookingSection
-          roomId={room.id} // Pass room ID to BookingSection
-          roomName={room.name} // Pass room name to BookingSection
-          roomPrice={room.price} // Pass room price to BookingSection
+          roomId={room.id || "N/A"}  
+          roomName={room.name || "N/A"}  
+          roomPrice={room.price || 0}  
         />
       </div>
     </section>

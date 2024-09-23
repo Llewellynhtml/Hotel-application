@@ -3,40 +3,40 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #fff; /* Base background color */
-  border-bottom: 1px solid #ddd; /* Optional border for separation */
-  position: relative; /* Ensures elements stay positioned correctly */
-  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth background transition */
+  padding: 15px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Left section (icons and buttons) */
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 15px; /* Space between icons and buttons */
+  gap: 20px; /* Increased gap for better spacing */
 }
 
 .nav-icon {
-  font-size: 20px; /* Adjust icon size as needed */
-  color: #fff; /* Initial icon color */
-  transition: color 0.3s ease; /* Smooth color transition */
+  font-size: 20px;
+  color: #007bff; /* Change color to match theme */
+  transition: color 0.3s ease;
 }
 
 .nav-btn {
   background: none;
   border: none;
-  color: #fff; /* Initial button text color */
+  color: #007bff; /* Change button text color */
   cursor: pointer;
   font-size: 16px;
-  transition: color 0.3s ease; /* Smooth color transition */
+  transition: color 0.3s ease;
 }
 
 /* Center section (logo) */
 .nav-center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  flex-grow: 1; /* Allow logo to center itself */
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
@@ -48,17 +48,17 @@
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 15px; /* Space between buttons */
+  gap: 15px;
 }
 
 .book-now {
-  background-color: #007bff; /* Button background color */
-  color: #fff; /* Button text color */
+  background-color: #007bff;
+  color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth background transition */
+  transition: background-color 0.3s ease;
 }
 
 .nav-auth-btn {
@@ -67,15 +67,14 @@
   border: 1px solid #007bff;
   padding: 10px 20px;
   border-radius: 5px;
-  cursor: pointer;
   text-decoration: none;
   font-size: 16px;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-auth-btn:hover {
   background-color: #007bff;
-  color: #fff; /* Inverse colors on hover */
+  color: #fff;
 }
 
 .book-now:hover {
@@ -92,108 +91,73 @@
 /* Secondary navigation */
 .secondary-nav {
   display: flex;
-  justify-content: center; /* Center the secondary links */
-  gap: 20px; /* Space between links */
-  background-color: #f8f9fa; /* Background color for secondary nav */
+  justify-content: center;
+  gap: 30px; /* Increased gap for better spacing */
+  background-color: #f8f9fa;
   padding: 10px 0;
 }
 
 .secondary-link {
   text-decoration: none;
-  color: #333; /* Link color */
-  font-size: 16px; /* Font size for links */
+  color: #333;
+  font-size: 16px;
 }
 
 .secondary-link:hover {
-  text-decoration: underline; /* Underline on hover */
+  text-decoration: underline;
 }
 
 /* Dropdown styles */
+.dropdown {
+  position: relative; /* Ensure dropdown is positioned relative to its parent */
+}
+
 .dropdown-content {
-  display: flex;
+  display: none; /* Initially hidden */
   flex-direction: column;
   background-color: #fff;
   border: 1px solid #ddd;
-  position: absolute;
-  top: 100%;
+  position: absolute; /* Positioned relative to the dropdown parent */
+  top: 100%; /* Position below the dropdown button */
   left: 0;
-  z-index: 1000;
-  width: 200px; /* Adjust width as needed */
-}
-
-.dropdown-item {
-  position: relative;
-}
-
-.dropdown-submenu {
-  display: none; /* Hide by default */
-  background-color: #f9f9f9;
-  border-left: 1px solid #ddd;
-  position: absolute;
-  top: 0;
-  left: 100%;
-  width: 200px; /* Adjust width as needed */
+  z-index: 1000; /* Higher than hero image */
+  width: 200px; /* Fixed width for dropdown */
 }
 
 .dropdown-link {
-  display: block;
   padding: 10px;
   text-decoration: none;
   color: #333;
-  transition: background-color 0.3s ease; /* Smooth background transition */
+  transition: background-color 0.3s ease;
 }
 
 .dropdown-link:hover {
   background-color: #f1f1f1;
 }
 
-.dropdown-item:hover .dropdown-submenu {
-  display: block;
-}
-
-/* Button styles */
-.dropdown-link,
-.dropdown-submenu button {
-  background: none;
-  border: none;
-  text-align: left;
-  padding: 10px;
-  cursor: pointer;
-  color: #333;
-}
-
-.dropdown-link:hover,
-.dropdown-submenu button:hover {
-  background-color: #ddd;
+.dropdown:hover .dropdown-content {
+  display: flex; /* Show dropdown on hover */
 }
 
 /* Hover Effects */
 .navbar:hover {
-  background-color: #fff; /* Change navbar background on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  background-color: #f8f9fa; /* Change navbar background on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .navbar:hover .nav-icon,
 .navbar:hover .nav-btn {
-  color: #000; /* Change icons and buttons to black on hover */
+  color: #0056b3; /* Change icons and buttons to darker blue on hover */
 }
 
 .navbar:hover .nav-auth-btn,
 .navbar:hover .book-now {
-  background-color: #fff; /* Change button background to white */
-  color: #000; /* Change button text color to black */
+  background-color: #fff;
+  color: #007bff; /* Maintain button color consistency */
 }
 
 /* Hero image effect */
 .hero-image {
-  background-image: url('./Pictures/1725435863875.png'); /* Adjust the path */
-  background-size: cover;
-  background-position: center;
-  opacity: 0.7; /* Set default opacity */
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transition for opacity and scaling */
-}
-
-.navbar:hover .hero-image {
-  opacity: 1; /* Fully reveal the hero image on hover */
-  transform: scale(1.05); /* Slight zoom-in effect */
+  position: relative; /* Ensure proper stacking context */
+  z-index: 1; /* Lower than dropdown */
 }

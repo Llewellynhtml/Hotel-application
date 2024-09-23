@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import CurrencyInput from "react-currency-input-field";
 import "./booking.css";
 
 function BookingSection({ roomId, roomName, roomPrice }) {
@@ -10,8 +9,7 @@ function BookingSection({ roomId, roomName, roomPrice }) {
   const [children, setChildren] = useState(0);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [currency, setCurrency] = useState("");
-  const [currencyType, setCurrencyType] = useState("ZAR");
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,6 +26,7 @@ function BookingSection({ roomId, roomName, roomPrice }) {
     }
     setStartDate(start);
     setEndDate(end);
+    setShowDatePicker(false); // Hide DatePicker after selecting the range
   };
 
   const handleReservation = () => {
@@ -53,7 +52,6 @@ function BookingSection({ roomId, roomName, roomPrice }) {
         endDate,
         adults,
         children,
-        currencyType,
         totalPrice,
       },
     });
@@ -64,17 +62,29 @@ function BookingSection({ roomId, roomName, roomPrice }) {
       <div className="horizontal-input-group">
         <div className="date-picker-trigger">
           <label>Select Dates:</label>
-          <DatePicker
-            selected={startDate}
-            onChange={handleDateChange}
-            startDate={startDate}
-            endDate={endDate}
-            selectsRange
-            inline
-            monthsShown={2}
-            dateFormat="dd/MM/yyyy"
-            className="date-picker-input"
-          />
+          <button
+            className="toggle-date-picker-btn"
+            onClick={() => setShowDatePicker(!showDatePicker)}
+          >
+            {startDate && endDate
+              ? `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`
+              : "Select Dates"}
+          </button>
+
+          {showDatePicker && (
+            <div className="date-picker-dropdown">
+              <DatePicker
+                selected={startDate}
+                onChange={handleDateChange}
+                startDate={startDate}
+                endDate={endDate}
+                selectsRange
+                monthsShown={2}
+                inline
+                dateFormat="dd/MM/yyyy"
+              />
+            </div>
+          )}
         </div>
 
         <div className="guest-input">

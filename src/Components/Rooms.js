@@ -37,8 +37,8 @@ const Rooms = () => {
     <section className="rooms-section">
       <div className="container">
         <div className="rooms-grid">
-          {data.map((rooms) => (
-            <div className="room-card" key={rooms.id}>
+          {data.map((rooms, index) => (
+            <div className="room-card" key={index}>
               <img src={rooms.image} alt={rooms.name} className="room-image" />
               <div className="room-details">
                 <h3 className="room-name">{rooms.name}</h3>
@@ -53,7 +53,7 @@ const Rooms = () => {
                 <div className="room-info">
                   <p>Size: {rooms.size} m²</p>
                   <p>Max Persons: {rooms.maxPerson}</p>
-                  <p className="room-price">${rooms.price} / night</p>
+                  <p className="room-price">R{rooms.price} / night</p>
                 </div>
                 <div className="room-actions">
                   <button

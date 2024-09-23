@@ -33,7 +33,7 @@ export default dataSlice.reducer;
 export const fetchData = () => async (dispatch) => {
   dispatch(setLoading());
   try {
-    const querySnapshot = await getDocs(collection(db, "rooms")); 
+    const querySnapshot = await getDocs(collection(db, "Rooms")); 
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),

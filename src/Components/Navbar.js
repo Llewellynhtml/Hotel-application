@@ -8,7 +8,7 @@ function Navbar() {
   const [showAccommodationDropdown, setShowAccommodationDropdown] = useState(false);
 
   const toggleAccommodationDropdown = () => {
-    setShowAccommodationDropdown((prev) => !prev);
+    setShowAccommodationDropdown(prev => !prev);
   };
 
   const handleClickOutside = (e) => {
@@ -28,7 +28,7 @@ function Navbar() {
     <>
       <nav className="navbar">
         <div className="nav-left">
-          <FaLanguage className="nav-icon" title="English" aria-label="Language" />
+          <FaLanguage className="nav-icon" title="Language" aria-label="Language" />
           <FaPhone className="nav-icon" title="Call Us" aria-label="Call Us" />
           <FaEnvelope className="nav-icon" title="Email Us" aria-label="Email Us" />
           <button className="nav-btn" aria-label="Newsletter">Newsletter</button>
@@ -62,13 +62,8 @@ function Navbar() {
           </button>
           {showAccommodationDropdown && (
             <div className="dropdown-content">
-              <div className="dropdown-item">
               <Link to="/accommodation/rooms" className="dropdown-link">Rooms</Link>
-
-              </div>
-              <div className="dropdown-item">
-                <Link to="/accommodation/suites" className="dropdown-link">Suites</Link>
-              </div>
+              <Link to="/accommodation/suites" className="dropdown-link">Suites</Link>
             </div>
           )}
         </div>

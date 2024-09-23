@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard, faCcPaypal } from '@fortawesome/free-brands-svg-icons';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import { useNavigate } from 'react-router-dom';
 import './PaymentMethod.css';
 
 const PaymentMethod = () => {
+  const [paymentType, setPaymentType] = useState(''); // Track payment type
   const [cardNumber, setCardNumber] = useState('');
   const [nameOnCard, setNameOnCard] = useState('');
   const [expiryMonth, setExpiryMonth] = useState('');
   const [expiryYear, setExpiryYear] = useState('');
   const [securityCode, setSecurityCode] = useState('');
+  const [notification, setNotification] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleCardSubmit = (e) => {
     e.preventDefault();
-    // Handle payment submission logic here
+
+    if (cardNumber.length < 16 || securityCode.length < 3) {
+      setNotification('Please enter valid card details.');
+      return;
+    }
+
     console.log({
       cardNumber,
       nameOnCard,
@@ -20,85 +30,71 @@ const PaymentMethod = () => {
       expiryYear,
       securityCode,
     });
+
+    setNotification('Your booking has been reserved!');
+    setTimeout(() => {
+      resetForm();
+      navigate('/rooms');
+    }, 2000);
   };
+
+  const resetForm = () => {
+    setCardNumber('');
+    setNameOnCard('');
+    setExpiryMonth('');
+    setExpiryYear('');
+    setSecurityCode('');
+    setNotification('');
+  };
+
+  const initialOptions = {
+    clientId: "test",
+    currency: "USD",
+    intent: "capture",
+  };
+
+  const paymentMethods = [
+    { name: 'Visa', icon: faCcVisa, type: 'card' },
+    { name: 'Mastercard', icon: faCcMastercard, type: 'card' },
+    { name: 'PayPal', icon: faCcPaypal, type: 'paypal' },
+  ];
 
   return (
     <div className="payment-method-container">
       <h2>Payment Method</h2>
       <div className="payment-icons">
-        <FontAwesomeIcon icon={faCcVisa} className="payment-icon" />
-        <FontAwesomeIcon icon={faCcMastercard} className="payment-icon" />
-        <FontAwesomeIcon icon={faCcPaypal} className="payment-icon" />
+        {paymentMethods.map((method) => (
+          <FontAwesomeIcon 
+            key={method.name}
+            icon={method.icon} 
+            className="payment-icon" 
+            onClick={() => { 
+              setPaymentType(method.type); 
+              resetForm(); 
+            }} 
+          />
+        ))}
       </div>
-      <form onSubmit={handleSubmit} className="payment-form">
-        <div className="form-group">
-          <label htmlFor="cardNumber">Card Number*</label>
-          <input
-            type="text"
-            id="cardNumber"
-            value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
-            required
+
+      {paymentType === 'paypal' && (
+        <PayPalScriptProvider options={initialOptions}>
+          <PayPalButtons
+            style={{ layout: 'vertical', color: 'blue', shape: 'rect', label: 'paypal' }}
+            onApprove={(data, actions) => {
+              return actions.order.capture().then((details) => {
+                setNotification(`Transaction completed by ${details.payer.name.given}`);
+                setTimeout(() => {
+                  resetForm();
+                  navigate('/rooms');
+                }, 2000);
+              });
+            }}
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="nameOnCard">Name on Card*</label>
-          <input
-            type="text"
-            id="nameOnCard"
-            value={nameOnCard}
-            onChange={(e) => setNameOnCard(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group expiry-date">
-          <div>
-            <label htmlFor="expiryMonth">Month*</label>
-            <select
-              id="expiryMonth"
-              value={expiryMonth}
-              onChange={(e) => setExpiryMonth(e.target.value)}
-              required
-            >
-              <option value="">Select Month</option>
-              {Array.from({ length: 12 }, (v, i) => (
-                <option key={i} value={i + 1}>
-                  {i + 1}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="expiryYear">Year*</label>
-            <select
-              id="expiryYear"
-              value={expiryYear}
-              onChange={(e) => setExpiryYear(e.target.value)}
-              required
-            >
-              <option value="">Select Year</option>
-              {Array.from({ length: 20 }, (v, i) => (
-                <option key={i} value={new Date().getFullYear() + i}>
-                  {new Date().getFullYear() + i}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="form-group">
-          <label htmlFor="securityCode">Security Code*</label>
-          <input
-            type="text"
-            id="securityCode"
-            value={securityCode}
-            onChange={(e) => setSecurityCode(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="submit-payment-btn">
-          Submit Payment
-        </button>
-      </form>
+        </PayPalScriptProvider>
+      )}
+
+      
+      {notification && <div className="notification">{notification}</div>}
     </div>
   );
 };
