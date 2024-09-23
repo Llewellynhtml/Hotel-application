@@ -37,34 +37,34 @@ const Rooms = () => {
     <section className="rooms-section">
       <div className="container">
         <div className="rooms-grid">
-          {data.map((rooms) => (
-            <div className="room-card" key={rooms.id}>
-              <img src={rooms.image} alt={rooms.name} className="room-image" />
+          {data.map((Rooms) => (
+            <div className="room-card" key={Rooms.id}>
+              <img src={Rooms.image} alt={Rooms.name} className="room-image" />
               <div className="room-details">
-                <h3 className="room-name">{rooms.name}</h3>
-                <p className="room-description">{rooms.description}</p>
+                <h3 className="room-name">{Rooms.name}</h3>
+                <p className="room-description">{Rooms.description}</p>
                 <ul className="room-facilities">
-                  {rooms.facilities?.map((facility, index) => (
+                  {Rooms.facilities?.map((facility, index) => (
                     <li key={index}>
                       {facility.icon} {facility.name}
                     </li>
                   ))}
                 </ul>
                 <div className="room-info">
-                  <p>Size: {rooms.size} m²</p>
-                  <p>Max Persons: {rooms.maxPerson}</p>
-                  <p className="room-price">${rooms.price} / night</p>
+                  <p>Size: {Rooms.size} m²</p>
+                  <p>Max Persons: {Rooms.maxPerson}</p>
+                  <p className="room-price">${Rooms.price} / night</p>
                 </div>
                 <div className="room-actions">
                   <button
-                    onClick={() => navigate(`/rooms/${rooms.id}`)}
+                    onClick={() => navigate(`/rooms/${Rooms.id}`)}
                     className="view-room-btn"
                   >
                     View Room
                   </button>
 
                   <button
-                    onClick={() => navigate(`/book/${rooms.id}`)}
+                    onClick={() => navigate(`/book/${Rooms.id}`)}
                     className="book-room-btn"
                   >
                     Book Now

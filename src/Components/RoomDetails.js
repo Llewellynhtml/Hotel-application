@@ -6,7 +6,7 @@ import "./RoomDetails.css";
 import BookingSection from "./BookingSection";
 
 const RoomDetails = () => {
-  const { id } = useParams(); // Get room ID from the URL
+  const { id } = useParams(); 
   const [room, setRoom] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,36 +17,36 @@ const RoomDetails = () => {
     const fetchRoomDetails = async () => {
       console.log("Fetching room with ID:", id);
       try {
-        const roomRef = doc(db, "Rooms", id); // Reference to the room in Firestore
-        const roomSnap = await getDoc(roomRef); // Fetch the room data
+        const roomRef = doc(db, "Rooms", id); 
+        const roomSnap = await getDoc(roomRef); 
+
         if (roomSnap.exists()) {
           console.log("Room data:", roomSnap.data());
           setRoom({ id: roomSnap.id, ...roomSnap.data() }); // Set room data in state
-          setLoading(false);
         } else {
           setError("Room not found");
-          setLoading(false);
         }
       } catch (error) {
         console.error("Error fetching room details:", error);
         setError("Error fetching room details");
+      } finally {
         setLoading(false);
       }
     };
-    
+
     fetchRoomDetails();
   }, [id]);
 
   if (loading) {
-    return <h2>Loading...</h2>; // Show loading spinner or text
+    return <h2>Loading...</h2>;
   }
 
   if (error) {
-    return <h2>{error}</h2>; // Show error message if any
+    return <h2>{error}</h2>; 
   }
 
   if (!room) {
-    return <h2>Room not found</h2>; // Show error if room is not found
+    return <h2>Room not found</h2>; 
   }
 
   return (
@@ -77,9 +77,9 @@ const RoomDetails = () => {
         </div>
 
         <BookingSection
-          roomId={room.id} // Pass room ID to BookingSection
-          roomName={room.name} // Pass room name to BookingSection
-          roomPrice={room.price} // Pass room price to BookingSection
+          roomId={room.id}
+          roomName={room.name} 
+          roomPrice={room.price} 
         />
       </div>
     </section>
