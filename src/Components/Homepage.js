@@ -10,6 +10,8 @@ import Adventure from "./adventure";
 import Footer from "./footer";
 import Navbar from "./Navbar";
 
+
+
 function HomePage() {
   return (
     <div className="homepage">

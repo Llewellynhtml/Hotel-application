@@ -3,7 +3,7 @@ import logo from '../One&Only 1.png';
 import './signin.css'; 
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { signUpStart, signUpSuccess, signUpFailure } from '../Redux/authSlice';
+import { signUp } from '../Redux/authSlice';
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
@@ -11,8 +11,8 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  
   const { user, loading, error } = useSelector((state) => state.auth);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -23,10 +23,8 @@ function Signup() {
       return;
     }
 
-    dispatch(signUpStart()); 
-    
-    const newUser = { firstName, lastName, email }; 
-    dispatch(signUpSuccess(newUser)); 
+    // Dispatch the sign-up action
+    dispatch(signUp({ firstName, lastName, email, password }));
   };
 
   useEffect(() => {
@@ -85,14 +83,7 @@ function Signup() {
         <button type="submit" disabled={loading}>
           {loading ? "Creating Account..." : "Create Account"}
         </button>
-        <p>or sign up with:</p>
-        <div className="social-auth">
-          <a href="#" className="social-btn google"><i className="fab fa-google"></i> Google</a>
-          <a href="#" className="social-btn facebook"><i className="fab fa-facebook"></i> Facebook</a>
-          <a href="#" className="social-btn twitter"><i className="fab fa-twitter"></i> X</a>
-          <a href="#" className="social-btn apple"><i className="fab fa-apple"></i> Apple</a>
-        </div>
-        <p className="auth-link">Already have an account? <a href="/signin">Sign in</a></p>
+        {error && <p>{error}</p>}
       </form>
     </div>
   );

@@ -5,7 +5,7 @@ import { fetchData } from "../Redux/dbslice";
 import "./Rooms.css";
 
 const Rooms = () => {
-  const { data = [], error, loading } = useSelector((state) => state.db);
+  const { data, error, loading } = useSelector((state) => state.data);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

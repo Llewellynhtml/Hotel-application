@@ -57,7 +57,7 @@ const Reservation = () => {
 
     // Navigate to Payment page after reservation
     navigate("/payment", {
-      state: { roomName, totalPrice, currencyType },
+      state: { title, firstName, lastName, email, confirmEmail, telephone, country, city, address1, zipCode, roomName, totalPrice, startDate, endDate,adults, children, roomPrice,  },
     });
   };
 
