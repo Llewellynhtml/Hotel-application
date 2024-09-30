@@ -3,8 +3,8 @@ import './AdminForm.css'; // Import AdminForm CSS
 
 const AdminForm = ({ addBooking }) => {
   const [formData, setFormData] = useState({
-    clientName: "",
-    surname: "",
+    firstName: "",
+    lastName: "",
     roomName: "",
     roomPrice: "",
     startDate: "",
@@ -27,8 +27,8 @@ const AdminForm = ({ addBooking }) => {
     addBooking(formData);
     // Optionally reset the form after submission
     setFormData({
-      clientName: "",
-      surname: "",
+      firstName: "",
+      lastName: "",
       roomName: "",
       roomPrice: "",
       startDate: "",
@@ -45,16 +45,16 @@ const AdminForm = ({ addBooking }) => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="clientName"
-          placeholder="Client Name"
-          value={formData.clientName}
+          name="firstName"
+          placeholder="firstName"
+          value={formData.firstName}
           onChange={handleChange}
         />
         <input
           type="text"
-          name="surname"
-          placeholder="Surname"
-          value={formData.surname}
+          name="lastName"
+          placeholder="lastName"
+          value={formData.lastName}
           onChange={handleChange}
         />
         <input

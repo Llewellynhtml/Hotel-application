@@ -26,10 +26,10 @@ const Admin = () => {
               ...data,
               startDate: data.startDate instanceof Timestamp 
                 ? data.startDate.toDate().toLocaleDateString() 
-                : data.startDate, // Fallback if not a Timestamp
+                : data.startDate, 
               endDate: data.endDate instanceof Timestamp 
                 ? data.endDate.toDate().toLocaleDateString() 
-                : data.endDate, // Fallback if not a Timestamp
+                : data.endDate, 
             };
           });
           setBookings(fetchedBookings);
@@ -58,8 +58,8 @@ const Admin = () => {
     try {
       const bookingData = {
         ...newBooking,
-        startDate: Timestamp.fromDate(new Date(newBooking.startDate)), // Convert string to Timestamp
-        endDate: Timestamp.fromDate(new Date(newBooking.endDate)),     // Convert string to Timestamp
+        startDate: Timestamp.fromDate(new Date(newBooking.startDate)), 
+        endDate: Timestamp.fromDate(new Date(newBooking.endDate)),     
       };
       const docRef = await addDoc(collection(db, "bookings"), bookingData);
       setBookings([...bookings, { id: docRef.id, ...bookingData }]);
@@ -84,8 +84,8 @@ const Admin = () => {
         {bookings.length > 0 ? (
           bookings.map((booking) => (
             <div className="booking-card" key={booking.id}>
-              <p>Client Name: {booking.clientName}</p>
-              <p>Surname: {booking.surname}</p>
+              <p>Client Name: {booking.firstName}</p>
+              <p>Surname: {booking.lastName}</p>
               <p>Room Name: {booking.roomName}</p>
               <p>Room Price: {booking.roomPrice}</p>
               <p>Start Date: {booking.startDate}</p>
