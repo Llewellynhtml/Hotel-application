@@ -41,10 +41,10 @@ const Rooms = () => {
             <div className="room-card" key={index}>
               <img src={rooms.image} alt={rooms.name} className="room-image" />
               <div className="room-details">
-                <h3 className="room-name">{rooms.name}</h3>
-                <p className="room-description">{rooms.description}</p>
+                <h3 className="room-name">{Rooms.name}</h3>
+                <p className="room-description">{Rooms.description}</p>
                 <ul className="room-facilities">
-                  {rooms.facilities?.map((facility, index) => (
+                  {Rooms.facilities?.map((facility, index) => (
                     <li key={index}>
                       {facility.icon} {facility.name}
                     </li>
@@ -57,14 +57,14 @@ const Rooms = () => {
                 </div>
                 <div className="room-actions">
                   <button
-                    onClick={() => navigate(`/rooms/${rooms.id}`)}
+                    onClick={() => navigate(`/rooms/${Rooms.id}`)}
                     className="view-room-btn"
                   >
                     View Room
                   </button>
 
                   <button
-                    onClick={() => navigate(`/book/${rooms.id}`)}
+                    onClick={() => navigate(`/book/${Rooms.id}`)}
                     className="book-room-btn"
                   >
                     Book Now
