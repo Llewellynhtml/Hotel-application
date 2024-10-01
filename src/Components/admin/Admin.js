@@ -9,6 +9,7 @@ const Admin = () => {
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const [error, setError] = useState(null); // Add error state
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
@@ -65,6 +66,7 @@ const Admin = () => {
       setBookings([...bookings, { id: docRef.id, ...bookingData }]);
     } catch (error) {
       console.error("Error adding booking: ", error);
+      setError("There was an issue adding the booking. Please try again."); // Set error message
     }
   };
 
@@ -80,6 +82,7 @@ const Admin = () => {
     <div className="admin-container">
       <h1>Welcome Admin, {user.email}</h1>
       <p>Here you can manage the hotel booking system.</p>
+      {error && <p className="error-message">{error}</p>} {/* Display error message */}
       <div className="booking-list">
         {bookings.length > 0 ? (
           bookings.map((booking) => (
@@ -108,9 +111,7 @@ const Admin = () => {
                 </button>
                 <button
                   className="update-button"
-                  onClick={() =>
-                    handleUpdate(booking.id, { roomName: "Updated Room" })
-                  }
+                  onClick={() => handleUpdate(booking.id, { /* updated data */ })}
                 >
                   Update Booking
                 </button>
@@ -118,10 +119,10 @@ const Admin = () => {
             </div>
           ))
         ) : (
-          <p>No bookings available</p>
+          <p>No bookings available.</p>
         )}
       </div>
-      <AdminForm addBooking={handleAddBooking} />
+      {/* AdminForm component to add/update bookings */}
     </div>
   );
 };

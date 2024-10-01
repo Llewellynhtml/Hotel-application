@@ -35,14 +35,24 @@ function BookingSection({ roomId, roomName, roomPrice }) {
       return;
     }
     
-    const numberOfDays = (endDate - startDate) / (1000 * 60 * 60 * 24);
-    if (numberOfDays <= 0) {
-      alert("End date must be after start date.");
-      return;
-    }
+    // const numberOfDays = (endDate - startDate) / (1000 * 60 * 60 * 24);
+    // if (numberOfDays <= 0) {
+    //   alert("End date must be after start date.");
+    //   return;
+    // }
+    const calculateDaysBooked = (inDate, outDate) => {
+      const checkIn = new Date(inDate);
+      const checkOut = new Date(outDate);
+      const timeDiff = Math.abs(checkOut - checkIn);
+      return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    };
+    const numberOfDays = calculateDaysBooked(startDate, endDate);
+    // const totalPrice = totalDays * room.price;
 
-    const totalPrice = roomPrice * numberOfDays;
-
+    const totalPrice = parseInt(roomPrice) * parseInt(numberOfDays);
+console.log("room-price:", typeof roomPrice)
+console.log("days:", typeof numberOfDays)
+console.log("total-price", typeof totalPrice)
     navigate(`/reservation`, {
       state: {
         roomId,

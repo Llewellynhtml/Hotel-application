@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './AdminForm.css'; // Import AdminForm CSS
 
-const AdminForm = ({ addBooking }) => {
+const AdminForm = ({ addBooking, selectedBooking, updateBooking, isEditing, setShowModal }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -14,6 +14,12 @@ const AdminForm = ({ addBooking }) => {
     totalPrice: "",
   });
 
+  useEffect(() => {
+    if (isEditing && selectedBooking) {
+      setFormData(selectedBooking);
+    }
+  }, [isEditing, selectedBooking]);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -23,10 +29,12 @@ const AdminForm = ({ addBooking }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Trigger the addBooking function with form data
-    addBooking(formData);
-    // Optionally reset the form after submission
-    setFormData({
+    if (isEditing) {
+      updateBooking(formData); 
+    } else {
+      addBooking(formData); 
+    }
+    setFormData({ 
       firstName: "",
       lastName: "",
       roomName: "",
@@ -37,76 +45,133 @@ const AdminForm = ({ addBooking }) => {
       children: "",
       totalPrice: "",
     });
+    setShowModal(false); 
   };
 
   return (
     <div className="admin-form-container">
-      <h2>Add or Update Booking</h2>
+      <h2>{isEditing ? "Edit Booking" : "Add Booking"}</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="firstName"
-          placeholder="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="lastName"
-          placeholder="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="roomName"
-          placeholder="Room Name"
-          value={formData.roomName}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          name="roomPrice"
-          placeholder="Room Price"
-          value={formData.roomPrice}
-          onChange={handleChange}
-        />
-        <input
-          type="date"
-          name="startDate"
-          placeholder="Start Date"
-          value={formData.startDate}
-          onChange={handleChange}
-        />
-        <input
-          type="date"
-          name="endDate"
-          placeholder="End Date"
-          value={formData.endDate}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          name="adults"
-          placeholder="Adults"
-          value={formData.adults}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          name="children"
-          placeholder="Children"
-          value={formData.children}
-          onChange={handleChange}
-        />
-        <input
-          type="number"
-          name="totalPrice"
-          placeholder="Total Price"
-          value={formData.totalPrice}
-          onChange={handleChange}
-        />
-        <button type="submit">Submit Booking</button>
+        <div className="form-group">
+          <label htmlFor="firstName">First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            id="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            id="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="roomName">Room Name</label>
+          <input
+            type="text"
+            name="roomName"
+            id="roomName"
+            value={formData.roomName}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="roomPrice">Room Price</label>
+          <input
+            type="number"
+            name="roomPrice"
+            id="roomPrice"
+            value={formData.roomPrice}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="startDate">Start Date</label>
+          <input
+            type="date"
+            name="startDate"
+            id="startDate"
+            value={formData.startDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="endDate">End Date</label>
+          <input
+            type="date"
+            name="endDate"
+            id="endDate"
+            value={formData.endDate}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="adults">Adults</label>
+          <input
+            type="number"
+            name="adults"
+            id="adults"
+            value={formData.adults}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="children">Children</label>
+          <input
+            type="number"
+            name="children"
+            id="children"
+            value={formData.children}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="totalPrice">Total Price</label>
+          <input
+            type="number"
+            name="totalPrice"
+            id="totalPrice"
+            value={formData.totalPrice}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="modal-buttons">
+          <button type="submit" className="save-button">
+            {isEditing ? "Save Changes" : "Submit Booking"}
+          </button>
+          <button
+            type="button"
+            className="close-button"
+            onClick={() => setShowModal(false)}
+          >
+            Close
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -54,7 +54,7 @@ export const signUp = ({ firstName, lastName, email, password }) => async (dispa
   dispatch(signUpStart());
 
   try {
-    // Create user with Firebase Auth
+  
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 

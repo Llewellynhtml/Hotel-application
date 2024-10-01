@@ -6,6 +6,7 @@ const Reservation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { roomName, roomPrice, startDate, endDate, adults, children, currencyType, totalPrice } = location.state;
+  console.log("Total:t",totalPrice)
 
   const [title, setTitle] = useState("");
   const [firstName, setFirstName] = useState("");
