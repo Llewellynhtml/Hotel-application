@@ -1,6 +1,5 @@
 import React from "react";
 import "./HomePage.css";
-import BookingSection from "./BookingSection";
 import Bridge from "./bridge";
 import Mothercity from "./mothercity";
 import ImageSlider from "./ImageSlider";
@@ -24,7 +23,7 @@ function HomePage() {
         </div>
       </div>
 
-      <BookingSection />
+    
       <Bridge />
       <Mothercity />
       <ImageSlider />
