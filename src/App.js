@@ -10,6 +10,7 @@ import Signin from './Components/signin';
 import HomePage from './Components/Homepage';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'; 
 import Admin from './Components/admin/Admin';
+import  ForgotPassword  from "./Components/forgotpassword"
 
 
 
@@ -32,6 +33,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} /> 
           <Route path="/signin" element={<Signin />} />  {/* Corrected here */}
           <Route path="/reservation" element={<Reservation />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/payment" element={<PaymentMethod />} />   
           <Route path="/admin" element={<Admin />} />  {/* Admin route */}
         </Routes>

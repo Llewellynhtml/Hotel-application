@@ -1,36 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../One&Only 1.png';
-import './signin.css'; 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { signUp } from '../Redux/authSlice';
+import './signin.css'; 
+import logo from '../One&Only 1.png'; 
 
-function Signup() {
+const Signup = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  
+
   const { user, loading, error } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSignUp = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
+
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      alert('Passwords do not match!');
       return;
     }
 
-    // Dispatch the sign-up action
+  
     dispatch(signUp({ firstName, lastName, email, password }));
   };
 
   useEffect(() => {
     if (user) {
-      alert("Registered Successfully!");
-      navigate("/");
+      alert('Registered successfully!');
+      navigate('/'); 
     }
   }, [user, navigate]);
 
@@ -38,55 +39,49 @@ function Signup() {
     <div className="auth-container">
       <img src={logo} alt="logo" className="logo" />
       <h1>Create an Account</h1>
-      <p className="subheading">Sign up to get started!</p>
-      <form className="auth-form" onSubmit={handleSignUp}>
-        <input 
-          type="text" 
-          name="firstName" 
-          placeholder="First Name" 
-          required 
-          value={firstName} 
-          onChange={(e) => setFirstName(e.target.value)} 
+      <form onSubmit={handleSignUp}>
+        <input
+          type="text"
+          placeholder="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
         />
-        <input 
-          type="text" 
-          name="lastName" 
-          placeholder="Last Name" 
-          required 
-          value={lastName} 
-          onChange={(e) => setLastName(e.target.value)} 
+        <input
+          type="text"
+          placeholder="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          required
         />
-        <input 
-          type="email" 
-          name="email" 
-          placeholder="Email" 
-          required 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)} 
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
-        <input 
-          type="password" 
-          name="password" 
-          placeholder="Enter Password" 
-          required 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
-        <input 
-          type="password" 
-          name="confirmPassword" 
-          placeholder="Confirm Password" 
-          required 
-          value={confirmPassword} 
-          onChange={(e) => setConfirmPassword(e.target.value)} 
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
         />
         <button type="submit" disabled={loading}>
-          {loading ? "Creating Account..." : "Create Account"}
+          {loading ? 'Creating Account...' : 'Create Account'}
         </button>
-        {error && <p>{error}</p>}
+        {error && <p className="error-message">{error}</p>}
       </form>
     </div>
   );
-}
+};
 
 export default Signup;
