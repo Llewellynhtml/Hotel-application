@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import "./ImageSlider.css";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react'; // Import Swiper and SwiperSlide
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Navigation, Pagination } from 'swiper/modules';
 
 import image1 from "./data/curated 1.jpg";
 import image2 from "./data/curiosities 2.jpg";
@@ -11,6 +15,7 @@ import image7 from "./data/nobu-vegan-omakase 7.jpg";
 import image8 from "./data/rooibos 8.jpg";
 import image9 from "./data/sake-food 9.jpg";
 
+// Array of images and links
 const images = [
   { src: image1, name: "CURATED CAPE TOWN TIPS", link: "/page1" },
   { src: image2, name: "CAPE TOWN HERITAGE GUIDE", link: "/page2" },
@@ -24,46 +29,28 @@ const images = [
 ];
 
 const ImageSlider = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 3 ? 0 : prevIndex + 1
-    );
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 3 : prevIndex - 1
-    );
-  };
-
   return (
     <div className="slider-container">
-      <button className="slider-arrow left-arrow" onClick={prevSlide}>
-        ❮
-      </button>
-      <div className="slider-wrapper">
-        <div
-          className="slider-content"
-          style={{
-            transform: `translateX(-${currentIndex * (100 / 3)}%)`,
-          }}
-        >
-          {images.map((image, index) => (
-            <div className="slider-item" key={index}>
+      <Swiper
+        modules={[Navigation, Pagination]} // Use navigation and pagination modules
+        spaceBetween={30}
+        loop={true}
+        pagination={{ clickable: true }}
+        navigation={true}
+        className="mySwiper"
+      >
+        {images.map((image, index) => (
+          <SwiperSlide key={index}>
+            <div className="card-content">
               <img src={image.src} alt={image.name} />
               <h3>{image.name}</h3>
               <a href={image.link} className="slider-link">
                 Learn More
               </a>
             </div>
-          ))}
-        </div>
-      </div>
-      <button className="slider-arrow right-arrow" onClick={nextSlide}>
-        ❯
-      </button>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
