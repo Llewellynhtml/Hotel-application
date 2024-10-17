@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import pictures from '../Components/Pictures/mothercity.jpg';
-import './mothercity.css';
+import React, { useState } from "react";
+import pictures from "../Components/Pictures/mothercity.jpg";
+import "./mothercity.css";
 
 function Mothercity() {
   const [isMoved, setIsMoved] = useState(false);
 
   const handleDiscoverClick = () => {
-    setIsMoved(!isMoved); 
+    setIsMoved(!isMoved);
   };
 
   return (
@@ -28,7 +28,7 @@ function Mothercity() {
           <img
             src={pictures}
             alt="One Life Stories"
-            className={`mothercity-image ${isMoved ? 'move' : ''}`} 
+            className={`mothercity-image ${isMoved ? "move" : ""}`}
           />
         </div>
       </div>

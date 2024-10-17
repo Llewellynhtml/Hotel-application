@@ -1,9 +1,13 @@
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react'; // Import Swiper and SwiperSlide
+import { Swiper, SwiperSlide } from 'swiper/react'; 
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Navigation, Pagination } from 'swiper/modules';
+import "./ImageSlider.css"
+
+
+
+import { Navigation, Pagination } from 'swiper/modules'; 
 
 import image1 from "./data/curated 1.jpg";
 import image2 from "./data/curiosities 2.jpg";
@@ -15,7 +19,7 @@ import image7 from "./data/nobu-vegan-omakase 7.jpg";
 import image8 from "./data/rooibos 8.jpg";
 import image9 from "./data/sake-food 9.jpg";
 
-// Array of images and links
+
 const images = [
   { src: image1, name: "CURATED CAPE TOWN TIPS", link: "/page1" },
   { src: image2, name: "CAPE TOWN HERITAGE GUIDE", link: "/page2" },
@@ -32,9 +36,11 @@ const ImageSlider = () => {
   return (
     <div className="slider-container">
       <Swiper
-        modules={[Navigation, Pagination]} // Use navigation and pagination modules
+        modules={[Navigation, Pagination]} 
         spaceBetween={30}
         loop={true}
+        slidesPerView={3} 
+        slidesPerGroup={1} 
         pagination={{ clickable: true }}
         navigation={true}
         className="mySwiper"

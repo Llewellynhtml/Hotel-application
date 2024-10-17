@@ -1,34 +1,33 @@
 
 .hero-image {
-    background-image: url(./Pictures/1725435863875.png);
-    height: 1000px; 
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    display: flex;
-    justify-content: center;
-    align-items:center;
-    color: rgb(255, 253, 253);
-    text-align:left;
-  }
-  
-  .hero-text {
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  .hero-text h1 {
-    font-size: 30px; 
-  }
-  
-  .hero-text p {
-    font-size: 15px;
-  }
+  background-image: url(./Pictures/1725435863875.png);
+  height: 1000px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; /* This makes the background image fixed */
+  position: relative; /* Ensures the text is not affected */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 253, 253);
+  text-align: left;
+  z-index: 1;
+}
 
-  .palm-tree{
-width: 100px;
+.hero-text {
+  padding: 20px;
+  border-radius: 8px;
+}
 
-  }
+.hero-text h1 {
+  font-size: 30px;
+}
+
+.hero-text p {
+  font-size: 15px;
+}
+
+  
 
   

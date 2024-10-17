@@ -139,40 +139,11 @@ const Reservation = () => {
             <input type="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} required />
           </label>
 
-          <button type="submit">Submit Reservation</button>
+          <button type="submit">Proceed to pay</button>
         </form>
       </div>
 
-      <div className="flight-info">
-        <h3>Flight Information</h3>
-
-        <div className="flight-details">
-          <label>
-            Flight Arrival Details:
-            <input type="text" placeholder="Flight Number" value={arrivalFlight} onChange={(e) => setArrivalFlight(e.target.value)} />
-          </label>
-          <div>
-            <input type="date" value={arrivalDate} onChange={(e) => setArrivalDate(e.target.value)} />
-            <input type="time" value={arrivalTime} onChange={(e) => setArrivalTime(e.target.value)} />
-          </div>
-        </div>
-
-        <div className="flight-details">
-          <label>
-            Flight Departure Details:
-            <input type="text" placeholder="Flight Number" value={departureFlight} onChange={(e) => setDepartureFlight(e.target.value)} />
-          </label>
-          <div>
-            <input type="date" value={departureDate} onChange={(e) => setDepartureDate(e.target.value)} />
-            <input type="time" value={departureTime} onChange={(e) => setDepartureTime(e.target.value)} />
-          </div>
-        </div>
-
-        <label className="special-requests">
-          Special Requests:
-          <textarea value={specialRequests} onChange={(e) => setSpecialRequests(e.target.value)} />
-        </label>
-      </div>
+      
     </div>
   );
 };

@@ -7,7 +7,6 @@ import animal from "./data/animal encounter.jpg";
 function Adventure() {
   return (
     <div className="Adv-container">
-        <div className="Adv-card">
       <div className="adv-title">
         <h1>YOUR CAPE TOWN ADVENTURE</h1>
         <hr className="adv-line" />
@@ -16,29 +15,30 @@ function Adventure() {
           whale-watching and paddle-boarding, exploring the Cape Winelands and
           hiking to the summit of iconic Table Mountain.
         </p>
-        <button>EXPLORE</button>
+        <button className="explore-btn">EXPLORE</button>
       </div>
-      <div>
-        <img src={mount} alt="table mountain" className="mountain-img"/>
-        <h1>TABLE MOUNTAIN</h1>
-        <p className="adv-p">Scal Table ountain, the unforgetable icon of cape town</p>
-        <button>EXPLORE</button>
-      </div>
-      <div>
-        <img src={wine} alt="wine" className="mountain-image" />
-        <h1>WINE EXPERIENCE</h1>
-        <p className="adv-p">Discover our signature wine experience in the cape town Winelands</p>
-        <button>EXPLORE</button>
-      </div>
-      <div>
-        <img src={animal} alt="animal" className="mountain-image"/>
-        <h1>ANIMAL ENCOUNTER</h1>
-        <p className="adv-p">
-          Experience whale watching and other unforgettable animal encounters
-          with us
-        </p>
-        <button>EXPLORE</button>
-      </div>
+
+      <div className="Adv-card">
+        <div className="adv-item">
+          <img src={mount} alt="Table Mountain" className="adv-img" />
+          <h2>TABLE MOUNTAIN</h2>
+          <p className="adv-p">Scale Table Mountain, the unforgettable icon of Cape Town</p>
+          <button className="explore-btn">EXPLORE</button>
+        </div>
+        
+        <div className="adv-item">
+          <img src={wine} alt="Wine Experience" className="adv-img" />
+          <h2>WINE EXPERIENCE</h2>
+          <p className="adv-p">Discover our signature wine experience in the Cape Winelands</p>
+          <button className="explore-btn">EXPLORE</button>
+        </div>
+        
+        <div className="adv-item">
+          <img src={animal} alt="Animal Encounter" className="adv-img" />
+          <h2>ENCOUNTER</h2>
+          <p className="adv-p">Experience whale watching and other unforgettable animal encounters</p>
+          <button className="explore-btn">EXPLORE</button>
+        </div>
       </div>
     </div>
   );

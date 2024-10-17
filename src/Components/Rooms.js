@@ -35,41 +35,34 @@ const Rooms = () => {
 
   return (
     <section className="rooms-section">
+      <h1 className="Marina">Marina Rise Rooms</h1>
       <div className="container">
         <div className="rooms-grid">
+          
           {data.map((rooms, index) => (
             <div className="room-card" key={index}>
               <img src={rooms.image} alt={rooms.name} className="room-image" />
               <div className="room-details">
-                <h3 className="room-name">{rooms.name}</h3>
-                <p className="room-description">{rooms.description}</p>
-                <ul className="room-facilities">
-                  {Rooms.facilities?.map((facility, index) => (
-                    <li key={index}>
-                      {facility.icon} {facility.name}
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="room-name">{rooms.name}</h3>{" "}
+                <ul className="room-facilities"></ul>
                 <div className="room-info">
-                  <p>Size: {rooms.size} m²</p>
                   <p>Max Persons: {rooms.maxPerson}</p>
                   <p className="room-price">R{rooms.price} / night</p>
                 </div>
                 <div className="room-actions">
-                <button
-  onClick={() => navigate(`/rooms/${rooms.id}`)} 
-  className="view-room-btn"
->
-  View Room
-</button>
+                  <button
+                    onClick={() => navigate(`/rooms/${rooms.id}`)}
+                    className="view-room-btn"
+                  >
+                    View Room
+                  </button>
 
-<button
-  onClick={() => navigate(`/book/${rooms.id}`)} 
-  className="book-room-btn"
->
-  Book Now
-</button>
-
+                  <button
+                    onClick={() => navigate(`/book/${rooms.id}`)}
+                    className="book-room-btn"
+                  >
+                    Book Now
+                  </button>
                 </div>
               </div>
             </div>

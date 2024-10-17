@@ -10,6 +10,7 @@ const RoomDetails = () => {
   const [room, setRoom] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [likes, setLikes] = useState(0); // State for likes
 
   useEffect(() => {
     const fetchRoomDetails = async () => {
@@ -30,6 +31,15 @@ const RoomDetails = () => {
 
     fetchRoomDetails();
   }, [id]);
+
+  const handleLike = () => {
+    setLikes((prevLikes) => prevLikes + 1);
+  };
+
+  const handleShare = () => {
+    // Implement share functionality
+    alert(`Sharing room: ${room.name}`);
+  };
 
   if (loading) return <h2>Loading...</h2>;
   if (error) return <h2>{error}</h2>;
@@ -61,6 +71,14 @@ const RoomDetails = () => {
               <p>Size: {room.size || "N/A"} m²</p>
               <p>Max Persons: {room.maxPerson || "N/A"}</p>
               <p className="room-price">R{room.price || "N/A"} / night</p>
+            </div>
+            <div className="room-actions">
+              <button onClick={handleLike} className="like-btn">
+                Like {likes > 0 && `(${likes})`}
+              </button>
+              <button onClick={handleShare} className="share-btn">
+                Share
+              </button>
             </div>
           </div>
         </div>
