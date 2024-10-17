@@ -1,54 +1,140 @@
 .reservation-summary {
-    margin: 50px auto;
-    max-width: 700px;
-    background-color: #f7f7f7;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .reservation-summary h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .reservation-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .reservation-form label {
-    margin-bottom: 10px;
-    font-size: 1.1em;
-  }
-  
-  .reservation-form input,
-  .reservation-form select,
-  .reservation-form textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  .reservation-form textarea {
-    min-height: 100px;
-  }
-  
-  button[type="submit"] {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #5cb85c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.2em;
-    cursor: pointer;
-  }
-  
-  button[type="submit"]:hover {
-    background-color: #4cae4c;
-  }
-  
+  margin: 50px auto;
+  max-width: 700px;
+  background-color: #f7f7f7;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.reservation-summary h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.summary-details {
+  margin-bottom: 30px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.summary-details p {
+  margin: 8px 0;
+}
+
+.reservation-info,
+.flight-info {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.reservation-info h2,
+.flight-info h3 {
+  margin-top: 0;
+}
+
+.reservation-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.reservation-form label {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  color: #555;
+}
+
+.reservation-form input,
+.reservation-form select,
+.reservation-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.reservation-form textarea {
+  min-height: 100px;
+}
+
+button[type="submit"] {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #4cae4c;
+}
+
+
+.flight-info {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #e9f5ff; /* Light blue background */
+  border: 1px solid #b3d7ff; /* Light blue border */
+  border-radius: 8px;
+}
+
+.flight-info h3 {
+  margin-top: 0;
+  color: #007bff; /* Darker blue for the header */
+  font-size: 1.5em;
+}
+
+.flight-info label {
+  margin-bottom: 15px; /* Increased margin for better spacing */
+  font-size: 1.1em;
+  color: #555;
+  display: block; /* Block display for full width */
+}
+
+.flight-info input,
+.flight-info textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.flight-info input[type="text"] {
+  margin-bottom: 10px; /* Space between fields */
+}
+
+.flight-info input[type="date"],
+.flight-info input[type="time"] {
+  width: calc(50% - 5px); /* Adjust width for side-by-side layout */
+  display: inline-block; /* Side by side */
+  margin-right: 10px; /* Space between date and time inputs */
+}
+
+.flight-info .flight-details {
+  display: flex; /* Flexbox for flight details */
+  justify-content: space-between; /* Space out flight number and date/time */
+  align-items: center; /* Align items vertically */
+  margin-bottom: 15px; /* Space between flight details */
+}
+
+.flight-info textarea {
+  min-height: 80px; /* Adjust height for better visibility */
+}
+
+.flight-info .special-requests {
+  margin-top: 10px;
+}

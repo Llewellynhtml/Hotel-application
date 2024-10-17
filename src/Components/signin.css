@@ -1,11 +1,13 @@
 .auth-container {
+ 
+  align-items: center;
   background: white;
   padding: 3rem;
   border-radius: 10px;
   box-shadow: 0 0 10px rgb(11, 118, 167);
   width: 100%;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 5% auto;
 }
 
 h1 {
@@ -112,4 +114,23 @@ button:hover {
   .auth-container {
     padding: 2rem;
   }
+}
+
+.auth-links {
+  margin-top: 20px;
+}
+
+.auth-links a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.signup-link,
+.forgot-password {
+  margin-top: 10px;
 }

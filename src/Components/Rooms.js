@@ -5,7 +5,7 @@ import { fetchData } from "../Redux/dbslice";
 import "./Rooms.css";
 
 const Rooms = () => {
-  const { data = [], error, loading } = useSelector((state) => state.db);
+  const { data, error, loading } = useSelector((state) => state.data);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -37,12 +37,12 @@ const Rooms = () => {
     <section className="rooms-section">
       <div className="container">
         <div className="rooms-grid">
-          {data.map((Rooms) => (
-            <div className="room-card" key={Rooms.id}>
-              <img src={Rooms.image} alt={Rooms.name} className="room-image" />
+          {data.map((rooms, index) => (
+            <div className="room-card" key={index}>
+              <img src={rooms.image} alt={rooms.name} className="room-image" />
               <div className="room-details">
-                <h3 className="room-name">{Rooms.name}</h3>
-                <p className="room-description">{Rooms.description}</p>
+                <h3 className="room-name">{rooms.name}</h3>
+                <p className="room-description">{rooms.description}</p>
                 <ul className="room-facilities">
                   {Rooms.facilities?.map((facility, index) => (
                     <li key={index}>
@@ -51,24 +51,25 @@ const Rooms = () => {
                   ))}
                 </ul>
                 <div className="room-info">
-                  <p>Size: {Rooms.size} m²</p>
-                  <p>Max Persons: {Rooms.maxPerson}</p>
-                  <p className="room-price">${Rooms.price} / night</p>
+                  <p>Size: {rooms.size} m²</p>
+                  <p>Max Persons: {rooms.maxPerson}</p>
+                  <p className="room-price">R{rooms.price} / night</p>
                 </div>
                 <div className="room-actions">
-                  <button
-                    onClick={() => navigate(`/rooms/${Rooms.id}`)}
-                    className="view-room-btn"
-                  >
-                    View Room
-                  </button>
+                <button
+  onClick={() => navigate(`/rooms/${rooms.id}`)} 
+  className="view-room-btn"
+>
+  View Room
+</button>
 
-                  <button
-                    onClick={() => navigate(`/book/${Rooms.id}`)}
-                    className="book-room-btn"
-                  >
-                    Book Now
-                  </button>
+<button
+  onClick={() => navigate(`/book/${rooms.id}`)} 
+  className="book-room-btn"
+>
+  Book Now
+</button>
+
                 </div>
               </div>
             </div>

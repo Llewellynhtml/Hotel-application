@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getDocs, collection } from 'firebase/firestore';
-import { db } from '../config/firebase'; 
+import { getDocs, collection, addDoc } from 'firebase/firestore';
+import { db } from '../config/firebase';
 
 const initialState = {
   data: [],
@@ -24,26 +24,43 @@ const dataSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    addBookingToState(state, action) {
+      state.data.push(action.payload);  
+    },
   },
 });
 
-export const { setLoading, setData, setError } = dataSlice.actions;
+export const { setLoading, setData, setError, addBookingToState } = dataSlice.actions;
 export default dataSlice.reducer;
+
 
 export const fetchData = () => async (dispatch) => {
   dispatch(setLoading());
   try {
-    const querySnapshot = await getDocs(collection(db, "rooms")); 
+    const querySnapshot = await getDocs(collection(db, "Rooms"));
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-
-    console.log("Fetched data from Firestore: ", data); // Log the fetched data
-    dispatch(setData(data)); 
+    console.log("Fetched data from Firestore: ", data); 
+    dispatch(setData(data));
   } catch (error) {
     console.error("Error fetching data: ", error);
     dispatch(setError(error.message));
   }
 };
 
+// Adding new booking
+export const addBookings = (bookingData) => async (dispatch) => {
+  try {
+    dispatch(setLoading());
+    const docRef = await addDoc(collection(db, "bookings"), bookingData);
+    console.log("Document written with ID: ", docRef.id);
+    
+    // Dispatching the new booking to add it to the state
+    dispatch(addBookingToState({ id: docRef.id, ...bookingData }));
+  } catch (error) {
+    console.error("Error adding booking: ", error);
+    dispatch(setError(error.message));
+  }
+};

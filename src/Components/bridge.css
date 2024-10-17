@@ -6,14 +6,14 @@
   }
   
   .bridge h1 {
-    font-size: 2rem; 
-    margin-bottom: 10px;
+    font-size: 2.5rem; 
+    margin-bottom: 15px;
     color: #1b1a1a; 
   }
   
   .bridge p {
-    font-size: 1rem; 
-    line-height: 1.6; 
+    font-size: 1.4rem; 
+    line-height: 1.5; 
     color: #2e2e2e; 
     max-width: 800px; 
     margin: 0 auto; 
