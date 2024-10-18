@@ -1,100 +1,50 @@
 .room-details-section {
-    padding: 50px 0;
-  }
-  
-  .room-details-card {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .room-details-image {
-    width: 50%;
-    border-radius: 10px;
-  }
-  
-  .room-details-content {
-    flex: 1;
-  }
-  
-  .room-details-name {
-    font-size: 2rem;
-    margin-bottom: 20px;
-  }
-  
-  .room-details-description {
-    margin-bottom: 20px;
-  }
-  
-  .room-details-facilities {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
-  }
-  
-  .room-info {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-  }
-  
-  .book-room-btn {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-  }
-  
-  .book-room-btn:hover {
-    background-color: #218838;
-  }
-  
+  padding: 50px 0;
+}
 
-  .room-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px; 
-  }
-  
-  .like-btn,
-  .share-btn {
-    padding: 10px 20px;
-    font-size: 0.875rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  }
-  
-  .like-btn {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .share-btn {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .like-btn:hover,
-  .share-btn:hover {
-    background-color: #0056b3; 
-    transform: translateY(-2px); 
-    box-shadow: 0 8px 12px rgba(1, 30, 245, 0.963); 
-  }
-  
-  .share-btn:hover {
-    background-color: #218838; 
-    transform: translateY(-2px); 
-    box-shadow: 0 8px 12px rgba(2, 14, 246, 0.962); 
-  }
-  
-  
-  .like-btn:active,
-  .share-btn:active {
-    transform: translateY(1px); 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  }
-  
+.room-details-card {
+  display: flex;
+  gap: 20px;
+}
+
+.room-details-image {
+  width: 50%;
+  border-radius: 10px;
+}
+
+.room-details-content {
+  flex: 1;
+}
+
+.room-details-name {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.room-details-description {
+  margin-bottom: 20px;
+}
+
+.room-details-facilities {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.room-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.book-room-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.book-room-btn:hover {
+  background-color: #218838;
+}
