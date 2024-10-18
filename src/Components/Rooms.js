@@ -3,7 +3,8 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRooms } from "../Redux/dbslice";
 import "./Rooms.css";
-import { FaHeart, FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa"; 
+import { FaHeart, FaFacebook, FaInstagram, FaShareAlt } from "react-icons/fa"; 
+import { BsTwitterX } from "react-icons/bs"; // Import the new Twitter icon
 
 const Rooms = () => {
   const { data, error, loading } = useSelector((state) => state.data);
@@ -72,7 +73,6 @@ const Rooms = () => {
                   </button>
                 </div>
 
-                {/* Heart and Share Buttons */}
                 <div className="interactive-actions">
                   <span
                     className={`heart-icon ${likes[room.id] ? "liked" : ""}`}
@@ -81,17 +81,33 @@ const Rooms = () => {
                     {likes[room.id] ? "❤️" : "🤍"}
                   </span>
 
-                  {/* Share Button */}
-                  <button className="share-btn" onClick={() => handleShare(room.id)}>
-                    Share
-                  </button>
+                  <span className="share-icon" onClick={() => handleShare(room.id)}>
+                    <FaShareAlt className="social-icon" />
+                  </span>
 
-                  {/* Social Media Icons */}
                   {showShareOptions[room.id] && (
                     <div className="share-icons">
-                      <FaFacebook className="social-icon" />
-                      <FaTwitter className="social-icon" /> {/* Twitter icon */}
-                      <FaInstagram className="social-icon" />
+                      <a
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <FaFacebook className="social-icon" />
+                      </a>
+                      <a
+                        href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <BsTwitterX className="social-icon" /> 
+                      </a>
+                      <a
+                        href={`https://www.instagram.com/?url=${window.location.href}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <FaInstagram className="social-icon" />
+                      </a>
                     </div>
                   )}
                 </div>

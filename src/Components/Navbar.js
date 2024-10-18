@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaPhone, FaEnvelope, FaCaretDown, FaUserCircle } from "react-icons/fa";
+import { FaPhone, FaEnvelope, FaCaretDown, FaUserCircle, FaHeart } from "react-icons/fa";
 import { getAuth, signOut } from "firebase/auth";
 import logo from "../One&Only 1.png";
 import "./nav.css";
@@ -26,8 +26,13 @@ function Navbar() {
   };
 
   const handleLogout = async () => {
-    await signOut(auth);
-    navigate("/");
+    try {
+      await signOut(auth);
+      localStorage.removeItem("userProfile");
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
 
   const handleProfileClick = () => {
@@ -58,7 +63,18 @@ function Navbar() {
     document.addEventListener("click", handleClickOutside);
 
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
-      setUser(currentUser);
+      if (currentUser) {
+        setUser(currentUser);
+        const userProfile = {
+          name: currentUser.displayName ? currentUser.displayName.split(" ")[0] : "User",
+          surname: currentUser.displayName ? currentUser.displayName.split(" ")[1] : "Not provided",
+          email: currentUser.email,
+        };
+        localStorage.setItem("userProfile", JSON.stringify(userProfile));
+      } else {
+        setUser(null);
+        localStorage.removeItem("userProfile");
+      }
     });
 
     return () => {
@@ -66,6 +82,8 @@ function Navbar() {
       unsubscribe();
     };
   }, [auth]);
+
+  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
 
   return (
     <>
@@ -90,9 +108,9 @@ function Navbar() {
               {showProfileDropdown && (
                 <div className="profile-dropdown-content">
                   <p>
-                    <strong>{user.displayName || "User"}</strong>
+                    <strong>{userProfile?.name || "User"}</strong>
                   </p>
-                  <p>{user.email}</p>
+                  <p>{userProfile?.email}</p>
                   <button onClick={handleViewProfile} className="view-button">
                     View Profile
                   </button>
@@ -139,7 +157,6 @@ function Navbar() {
         <Link to="/about" className="secondary-link">About</Link>
       </div>
 
-      {/* Profile Modal */}
       {showProfileModal && (
         <div className="modal-overlay" onClick={handleCloseModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -153,9 +170,16 @@ function Navbar() {
                 )}
                 <input type="file" accept="image/*" onChange={handleProfilePicChange} />
               </div>
-              <p><strong>Name:</strong> {user.displayName || "User"}</p>
-              <p><strong>Surname:</strong> {user.displayName ? user.displayName.split(" ")[1] : "Not provided"}</p>
-              <p><strong>Email:</strong> {user.email}</p>
+              <p><strong>Name:</strong> {userProfile?.name || "User"}</p>
+              <p><strong>Surname:</strong> {userProfile?.surname || "Not provided"}</p>
+              <p><strong>Email:</strong> {userProfile?.email}</p>
+
+              <div className="profile-actions">
+                <Link to="/user-bookings" className="profile-link">Booking</Link>
+                <Link to="/user-favoritism" className="profile-link">
+                  Favoritism <FaHeart className="heart-icon" />
+                </Link>
+              </div>
               <button className="close-button" onClick={handleCloseModal}>Close</button>
             </div>
           </div>

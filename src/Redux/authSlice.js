@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth'; 
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from '../config/firebase';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Import required storage functions
 
 const initialState = {
   user: null,
@@ -52,7 +53,7 @@ export const authSlice = createSlice({
   },
 });
 
-// Export actions
+
 export const { 
   signInStart, 
   signInSuccess, 
@@ -65,22 +66,30 @@ export const {
   resetPasswordFailure
 } = authSlice.actions;
 
-// Async thunk for signing up
-export const signUp = ({ firstName, lastName, email, password }) => async (dispatch) => {
+
+export const signUp = ({ firstName, lastName, email, password, profileImage }) => async (dispatch) => {
   dispatch(signUpStart());
 
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Save user info to Firestore using the uid as the document ID
+    
     await setDoc(doc(db, "users", user.uid), {
       firstName,
       lastName,
       email,
       uid: user.uid,
-      role: 'user',  // Assign a default role, can be 'user' or 'admin'
+      role: 'user',  
     });
+
+    
+    if (profileImage) {
+      await uploadProfileImage(profileImage, user.uid);
+    }
+
+    
+    saveUserToLocalStorage({ firstName, lastName, email, uid: user.uid });
 
     dispatch(signUpSuccess(user));
   } catch (error) {
@@ -88,7 +97,36 @@ export const signUp = ({ firstName, lastName, email, password }) => async (dispa
   }
 };
 
-// Async thunk for signing in
+
+async function uploadProfileImage(file, userId) {
+  const storage = getStorage();
+  const storageRef = ref(storage, `profile-images/${userId}`);
+  
+  
+  await uploadBytes(storageRef, file);
+
+  
+  const downloadURL = await getDownloadURL(storageRef);
+
+
+  await setDoc(doc(db, "users", userId), { profileImageUrl: downloadURL }, { merge: true });
+
+  
+  localStorage.setItem("profileImageUrl", downloadURL);
+  return downloadURL;
+}
+
+
+const saveUserToLocalStorage = ({ firstName, lastName, email, uid, profileImageUrl = '' }) => {
+  localStorage.setItem('user', JSON.stringify({
+    firstName,
+    lastName,
+    email,
+    uid,
+    profileImageUrl,
+  }));
+};
+
 export const signIn = (email, password) => async (dispatch) => {
   dispatch(signInStart());
 
@@ -100,17 +138,25 @@ export const signIn = (email, password) => async (dispatch) => {
     if (userDoc.exists()) {
       const userData = userDoc.data();
       const isAdmin = userData.role === 'admin';
+
+      saveUserToLocalStorage({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        uid: userData.uid,
+        profileImageUrl: userData.profileImageUrl || '', 
+      });
+
       dispatch(signInSuccess({ ...user, isAdmin }));
     } else {
       dispatch(signInSuccess(user)); 
     }
-
   } catch (error) {
     dispatch(signInFailure(error.message));
   }
 };
 
-
+// Async thunk for resetting password
 export const resetPassword = ({ email }) => async (dispatch) => {
   dispatch(resetPasswordStart());
 

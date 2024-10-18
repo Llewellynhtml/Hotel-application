@@ -24,14 +24,14 @@ const Signup = () => {
       return;
     }
 
-  
     dispatch(signUp({ firstName, lastName, email, password }));
   };
 
   useEffect(() => {
     if (user) {
       alert('Registered successfully!');
-      navigate('/'); 
+      console.log("User data from local storage:", localStorage.getItem('user')); // Check local storage
+      navigate('/');
     }
   }, [user, navigate]);
 

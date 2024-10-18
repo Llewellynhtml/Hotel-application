@@ -1,24 +1,25 @@
 
 
-/* Full-Width Footer Hero Styling */
 .footer-hero {
-  width: 100%;
+  width: 2304px;
   background-color: black;
-  padding: 60px 0;
+  padding: 120px;
 }
 
 .footer-container {
   display: flex;
   justify-content: space-between;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+  margin: 5px;
+  padding: 5px;
   background-attachment: fixed;
 }
 
 .footer-logo img {
-  max-width: 200px;
+  max-width: 350px;
+  height: 350px;
   color: #FFFFFF;
+
 }
 
 .footer-links {
@@ -35,18 +36,19 @@
 }
 
 .footer-section h3 {
-  font-size: 1.2em;
+  font-size: 20px;
   margin-bottom: 10px;
   color: #FFFFFF;
 }
 
 .footer-section ul {
+  font-size: 21px;
   list-style-type: none;
-  padding: 0;
+  padding: 1px;
 }
 
 .footer-section ul li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .footer-section ul li a {
@@ -67,6 +69,6 @@ color: #FFFFFF;
   }
 
   .footer-section {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
 }
