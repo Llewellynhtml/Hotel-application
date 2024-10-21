@@ -9,6 +9,9 @@ function Navbar() {
   const [showAccommodationDropdown, setShowAccommodationDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showExperienceDropdown, setShowExperienceDropdown] = useState(false);
+  const [showOffersDropdown, setShowOffersDropdown] = useState(false);
+  const [showDiningDropdown, setShowDiningDropdown] = useState(false); // For Dining dropdown
   const [user, setUser] = useState(null);
   const [profilePic, setProfilePic] = useState("");
   const auth = getAuth();
@@ -18,10 +21,25 @@ function Navbar() {
     setShowAccommodationDropdown((prev) => !prev);
   };
 
+  const toggleExperienceDropdown = () => {
+    setShowExperienceDropdown((prev) => !prev);
+  };
+
+  const toggleOffersDropdown = () => {
+    setShowOffersDropdown((prev) => !prev);
+  };
+
+  const toggleDiningDropdown = () => {
+    setShowDiningDropdown((prev) => !prev);
+  };
+
   const handleClickOutside = (e) => {
     if (!e.target.closest(".dropdown") && !e.target.closest(".profile-dropdown")) {
       setShowAccommodationDropdown(false);
       setShowProfileDropdown(false);
+      setShowExperienceDropdown(false);
+      setShowOffersDropdown(false);
+      setShowDiningDropdown(false);
     }
   };
 
@@ -133,8 +151,36 @@ function Navbar() {
       <hr className="divider" />
 
       <div className="secondary-nav">
-        <Link to="/experience" className="secondary-link">Experience</Link>
-        <Link to="/offers" className="secondary-link">Offers</Link>
+        <div className="dropdown">
+          <button
+            className="secondary-link"
+            onClick={toggleExperienceDropdown}
+            aria-expanded={showExperienceDropdown}
+          >
+            Experience <FaCaretDown />
+          </button>
+          {showExperienceDropdown && (
+            <div className="dropdown-content">
+              <Link to="/experience/wellness" className="dropdown-link">Wellness</Link>
+              <Link to="/experience/fitness" className="dropdown-link">Fitness</Link>
+            </div>
+          )}
+        </div>
+
+        <div className="dropdown">
+          <button
+            className="secondary-link"
+            onClick={toggleOffersDropdown}
+            aria-expanded={showOffersDropdown}
+          >
+            Offers <FaCaretDown />
+          </button>
+          {showOffersDropdown && (
+            <div className="dropdown-content">
+              <Link to="/offers/offer1" className="dropdown-link">Special Offer 1</Link>
+            </div>
+          )}
+        </div>
 
         <div className="dropdown">
           <button
@@ -147,14 +193,44 @@ function Navbar() {
           {showAccommodationDropdown && (
             <div className="dropdown-content">
               <Link to="/accommodation/rooms" className="dropdown-link">Rooms</Link>
-              <Link to="/accommodation/suites" className="dropdown-link">Suites</Link>
             </div>
           )}
         </div>
 
-        <Link to="/dining" className="secondary-link">Dining</Link>
-        <Link to="/events" className="secondary-link">Events</Link>
-        <Link to="/about" className="secondary-link">About</Link>
+        <div className="dropdown">
+          <button
+            className="secondary-link"
+            onClick={toggleDiningDropdown}
+            aria-expanded={showDiningDropdown}
+          >
+            Dining <FaCaretDown />
+          </button>
+          {showDiningDropdown && (
+            <div className="dropdown-content">
+              <Link to="/dining/overview" className="dropdown-link">Overview</Link>
+            </div>
+          )}
+        </div>
+
+        <div className="dropdown">
+          <button className="secondary-link">
+            Events <FaCaretDown />
+          </button>
+          <div className="dropdown-content">
+            <Link to="/events/corporate" className="dropdown-link">Corporate Events</Link>
+
+          </div>
+        </div>
+
+        <div className="dropdown">
+          <button className="secondary-link">
+            About <FaCaretDown />
+          </button>
+          <div className="dropdown-content">
+            <Link to="/about-us" className="dropdown-link">About Us</Link>
+            <Link to="/useful-info" className="dropdown-link">Useful Information</Link>
+          </div>
+        </div>
       </div>
 
       {showProfileModal && (
@@ -190,3 +266,4 @@ function Navbar() {
 }
 
 export default Navbar;
+
