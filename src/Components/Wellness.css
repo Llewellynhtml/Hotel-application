@@ -1,0 +1,80 @@
+.wellness-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.wellness-header {
+    text-align: center;
+}
+
+.image-group {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.image-group img {
+    max-width: 45%; 
+    margin: 0 10px; 
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 2; 
+}
+
+.fitness-section img {
+    z-index: 1; 
+}
+
+
+.spa-indulgence, .studiO-section, .fitness-section, .activities-section, .table-mountain-section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    margin-top: 20px;
+}
+.fitness-section {
+    position: relative; /* Create a positioning context for the children */
+    margin-bottom: 40px;
+}
+
+.image5-container {
+    position: relative; /* Positioning context for the child elements */
+    z-index: 1; /* Lower z-index for the parent container */
+}
+
+.image5 {
+    width: 100%; /* Make image 5 responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.fitness-container {
+    background-color: rgba(248, 248, 248, 0.9); /* Light background for visibility with slight transparency */
+    border: 1px solid #ddd; /* Optional border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding for spacing */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    position: relative; /* Maintain normal flow within the parent container */
+    margin-top: -80px; /* Move up to overlap image 5 */
+    z-index: 2; /* Higher z-index for the fitness container */
+}
+
+.sticky {
+    position: sticky;
+    top: 20px; /* Adjust this value to set how far down the page it should stick */
+    z-index: 3; /* Higher z-index for the sticky image */
+}
+
+/* Additional styles for the fitness section */
+.fitness-section ul {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+}
+
+.fitness-section li {
+    margin: 5px 0; /* Space between list items */
+}
+

@@ -5,8 +5,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import "./ImageSlider.css"
 
-
-
 import { Navigation, Pagination } from 'swiper/modules'; 
 
 import image1 from "./data/curated 1.jpg";
@@ -21,15 +19,15 @@ import image9 from "./data/sake-food 9.jpg";
 
 
 const images = [
-  { src: image1, name: "CURATED CAPE TOWN TIPS", link: "/page1" },
-  { src: image2, name: "CAPE TOWN HERITAGE GUIDE", link: "/page2" },
-  { src: image3, name: "ROOIBOS: SOUTH AFRICAN TEA", link: "/page3" },
-  { src: image4, name: "SAKE AT NOBU", link: "/page4" },
-  { src: image5, name: "FOR THE CURIOUS", link: "/page5" },
-  { src: image6, name: "MINDFUL MORNINGS", link: "/page6" },
-  { src: image7, name: "NATURAL WONDERS", link: "/page7" },
-  { src: image8, name: "CAPE TOWN ART & DESIGN GUIDE", link: "/page8" },
-  { src: image9, name: "NOBU'S VEGAN OMAKASE MENUS", link: "/page9" },
+  { src: image1, name: "CURATED CAPE TOWN TIPS" },
+  { src: image2, name: "CAPE TOWN HERITAGE GUIDE" },
+  { src: image3, name: "ROOIBOS: SOUTH AFRICAN TEA" },
+  { src: image4, name: "SAKE AT NOBU" },
+  { src: image5, name: "FOR THE CURIOUS" },
+  { src: image6, name: "MINDFUL MORNINGS" },
+  { src: image7, name: "NATURAL WONDERS" },
+  { src: image8, name: "CAPE TOWN ART & DESIGN GUIDE" },
+  { src: image9, name: "NOBU'S VEGAN OMAKASE MENUS" },
 ];
 
 const ImageSlider = () => {
@@ -50,9 +48,6 @@ const ImageSlider = () => {
             <div className="card-content">
               <img src={image.src} alt={image.name} />
               <h3>{image.name}</h3>
-              <a href={image.link} className="slider-link">
-                Learn More
-              </a>
             </div>
           </SwiperSlide>
         ))}

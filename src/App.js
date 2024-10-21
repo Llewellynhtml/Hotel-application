@@ -8,11 +8,12 @@ import PaymentMethod from './Components/PaymentMethod';
 import Signup from './Components/Signup'; 
 import Signin from './Components/signin'; 
 import HomePage from './Components/Homepage';
+import Offers from './Components/Offers'; 
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'; 
 import Admin from './Components/admin/Admin';
-import  ForgotPassword  from "./Components/forgotpassword"
-
-
+import ForgotPassword from "./Components/forgotpassword";
+import Fitness from './Components/Fitness'; 
+import Wellness from './Components/Wellness'; 
 
 const App = () => {
   const initialOptions = {
@@ -31,11 +32,14 @@ const App = () => {
           <Route path="/rooms/:id" element={<RoomDetails />} />
           <Route path="/book/:id" element={<BookingSection />} />
           <Route path="/signup" element={<Signup />} /> 
-          <Route path="/signin" element={<Signin />} />  {/* Corrected here */}
+          <Route path="/signin" element={<Signin />} />
           <Route path="/reservation" element={<Reservation />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/payment" element={<PaymentMethod />} />   
-          <Route path="/admin" element={<Admin />} />  {/* Admin route */}
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/Offers" element={<Offers />} />
+          <Route path="/experience/wellness" element={<Wellness />} /> 
+          <Route path="/experience/fitness" element={<Fitness />} /> 
         </Routes>
       </Router>
     </PayPalScriptProvider>

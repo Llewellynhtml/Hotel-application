@@ -26,7 +26,7 @@ function BookingSection({ roomId, roomName, roomPrice }) {
     }
     setStartDate(start);
     setEndDate(end);
-    setShowDatePicker(false); // Hide DatePicker after selecting the range
+    setShowDatePicker(false); 
   };
 
   const handleReservation = () => {
