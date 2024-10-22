@@ -1,0 +1,158 @@
+/* Container for the wellness page */
+.wellness-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+/* Header section */
+.wellness-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.wellness-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.wellness-header p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Image group for sections with multiple images */
+.image-group {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.image-group img {
+    max-width: 45%;
+    margin: 0 10px;
+    border-radius: 10px;
+}
+
+/* Spa and Studio sections */
+.spa-indulgence, .studiO-section, .fitness-section, .activities-section, .table-mountain-section {
+    margin-bottom: 40px;
+}
+
+.spa-indulgence p, .studiO-section p, .fitness-section p, .activities-section p, .table-mountain-section p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* Fitness section specific */
+.fitness-section {
+    position: relative; /* Relative to its own positioning */
+    margin-bottom: 40px;
+}
+
+/* Image 5 as the parent container */
+.image5-container {
+    position: relative;
+    width: 100%;
+    z-index: 1; /* Parent container at a lower z-index */
+    margin-bottom: 30px; /* Add space between sections */
+}
+
+.image5 {
+    width: 100%; /* Ensure image 5 spans the full width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px;
+    display: block;
+    position: relative;
+}
+
+/* Fitness container within the image */
+.fitness-container {
+    background-color: rgba(248, 248, 248, 0.9); /* Light background for readability */
+    border: 1px solid #ddd; /* Subtle border for definition */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+    position: absolute; /* Absolute positioning within the parent container */
+    top: 40px; /* Adjust positioning relative to the parent */
+    left: 40px; /* Move left by 40px */
+    z-index: 2; /* Ensure it stays on top of the image */
+    max-width: 500px; /* Optional: limit the width for better layout control */
+}
+
+/* Sticky Image 6 */
+.sticky {
+    position: sticky;
+    top: 20px; /* Adjust this to control when it sticks */
+    z-index: 3; /* Higher than the fitness container */
+    border-radius: 10px; /* Rounded corners for the sticky image */
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+/* Styling the additional information list */
+.fitness-section ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0;
+}
+
+.fitness-section li {
+    margin: 10px 0; /* Spacing between list items */
+    font-size: 1.1em;
+    color: #444;
+}
+
+.fitness-section a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.fitness-section a:hover {
+    text-decoration: underline;
+}
+
+/* Activities and Table Mountain sections */
+.activities-section h2, .table-mountain-section h2 {
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+.activities-section p, .table-mountain-section p {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 10px;
+    color: #555;
+}
+
+.activities-section a, .table-mountain-section a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.activities-section a:hover, .table-mountain-section a:hover {
+    text-decoration: underline;
+}
+
+/* General media query for responsiveness */
+@media (max-width: 768px) {
+    .wellness-header h1 {
+        font-size: 2em;
+    }
+
+    .fitness-container {
+        left: 20px; /* Adjust left margin for smaller screens */
+        top: 20px;
+        max-width: 100%;
+    }
+
+    .sticky {
+        max-width: 100%;
+    }
+
+    .image-group img {
+        max-width: 100%; /* Ensure images stack on smaller screens */
+        margin: 10px 0;
+    }
+}

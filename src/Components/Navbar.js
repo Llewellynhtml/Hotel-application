@@ -11,7 +11,9 @@ function Navbar() {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showExperienceDropdown, setShowExperienceDropdown] = useState(false);
   const [showOffersDropdown, setShowOffersDropdown] = useState(false);
-  const [showDiningDropdown, setShowDiningDropdown] = useState(false); // For Dining dropdown
+  const [showDiningDropdown, setShowDiningDropdown] = useState(false);
+  const [showEventsDropdown, setShowEventsDropdown] = useState(false); // Added for Events dropdown
+  const [showAboutDropdown, setShowAboutDropdown] = useState(false); // Added for About dropdown
   const [user, setUser] = useState(null);
   const [profilePic, setProfilePic] = useState("");
   const auth = getAuth();
@@ -33,6 +35,14 @@ function Navbar() {
     setShowDiningDropdown((prev) => !prev);
   };
 
+  const toggleEventsDropdown = () => {
+    setShowEventsDropdown((prev) => !prev);
+  };
+
+  const toggleAboutDropdown = () => {
+    setShowAboutDropdown((prev) => !prev);
+  };
+
   const handleClickOutside = (e) => {
     if (!e.target.closest(".dropdown") && !e.target.closest(".profile-dropdown")) {
       setShowAccommodationDropdown(false);
@@ -40,6 +50,8 @@ function Navbar() {
       setShowExperienceDropdown(false);
       setShowOffersDropdown(false);
       setShowDiningDropdown(false);
+      setShowEventsDropdown(false);
+      setShowAboutDropdown(false);
     }
   };
 
@@ -173,11 +185,11 @@ function Navbar() {
             onClick={toggleOffersDropdown}
             aria-expanded={showOffersDropdown}
           >
-            Offers <FaCaretDown />
+            Offer <FaCaretDown />
           </button>
           {showOffersDropdown && (
             <div className="dropdown-content">
-              <Link to="/offers/offer1" className="dropdown-link">Special Offer 1</Link>
+              <Link to="/Offers" className="dropdown-link">Choose More</Link>
             </div>
           )}
         </div>
@@ -207,29 +219,39 @@ function Navbar() {
           </button>
           {showDiningDropdown && (
             <div className="dropdown-content">
-              <Link to="/dining/overview" className="dropdown-link">Overview</Link>
+              <Link to="/dining/winestudio" className="dropdown-link">Wine Studio</Link>
             </div>
           )}
         </div>
 
         <div className="dropdown">
-          <button className="secondary-link">
+          <button
+            className="secondary-link"
+            onClick={toggleEventsDropdown}
+            aria-expanded={showEventsDropdown}
+          >
             Events <FaCaretDown />
           </button>
-          <div className="dropdown-content">
-            <Link to="/events/corporate" className="dropdown-link">Corporate Events</Link>
-
-          </div>
+          {showEventsDropdown && (
+            <div className="dropdown-content">
+              <Link to="/events/corporate" className="dropdown-link">Corporate Events</Link>
+            </div>
+          )}
         </div>
 
         <div className="dropdown">
-          <button className="secondary-link">
+          <button
+            className="secondary-link"
+            onClick={toggleAboutDropdown}
+            aria-expanded={showAboutDropdown}
+          >
             About <FaCaretDown />
           </button>
-          <div className="dropdown-content">
-            <Link to="/about-us" className="dropdown-link">About Us</Link>
-            <Link to="/useful-info" className="dropdown-link">Useful Information</Link>
-          </div>
+          {showAboutDropdown && (
+            <div className="dropdown-content">
+              <Link to="/about/us" className="dropdown-link">About Us</Link>
+            </div>
+          )}
         </div>
       </div>
 
@@ -237,27 +259,7 @@ function Navbar() {
         <div className="modal-overlay" onClick={handleCloseModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>User Profile</h2>
-            <div className="profile-details">
-              <div className="profile-image-container">
-                {profilePic ? (
-                  <img src={profilePic} alt="Profile" className="profile-image" />
-                ) : (
-                  <p>No profile picture uploaded.</p>
-                )}
-                <input type="file" accept="image/*" onChange={handleProfilePicChange} />
-              </div>
-              <p><strong>Name:</strong> {userProfile?.name || "User"}</p>
-              <p><strong>Surname:</strong> {userProfile?.surname || "Not provided"}</p>
-              <p><strong>Email:</strong> {userProfile?.email}</p>
-
-              <div className="profile-actions">
-                <Link to="/user-bookings" className="profile-link">Booking</Link>
-                <Link to="/user-favoritism" className="profile-link">
-                  Favoritism <FaHeart className="heart-icon" />
-                </Link>
-              </div>
-              <button className="close-button" onClick={handleCloseModal}>Close</button>
-            </div>
+            {/* Modal content */}
           </div>
         </div>
       )}
@@ -266,4 +268,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

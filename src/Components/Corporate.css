@@ -1,0 +1,69 @@
+.corporate-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.corporate-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.corporate-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.corporate-header p {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.corporate-section, .corporate-ballroom, .corporate-marina-room, .corporate-boardroom {
+    margin-bottom: 60px;
+}
+
+.corporate-section h2, .corporate-ballroom h2, .corporate-marina-room h2, .corporate-boardroom h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.corporate-section p, .corporate-ballroom p, .corporate-marina-room p, .corporate-boardroom p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.image-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.image-group img {
+    max-width: 45%;
+    margin: 0 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.corporate-ballroom img, .corporate-marina-room img, .corporate-boardroom img {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .image-group {
+        flex-direction: column;
+    }
+
+    .image-group img {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+}

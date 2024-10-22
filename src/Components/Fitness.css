@@ -1,0 +1,165 @@
+/* Container for the fitness page */
+.fitness-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: Arial, sans-serif;
+}
+
+/* Header section */
+.fitness-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.fitness-header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.fitness-header p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Contact information section */
+.contact-info {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-info h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    font-size: 1.1em;
+}
+
+.contact-info a {
+    color: #0073e6;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Additional information section */
+.additional-info {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.additional-info h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.additional-info p {
+    font-size: 1.1em;
+}
+
+/* Yoga section */
+.yoga-section {
+    background-color: #eef6f9;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.yoga-section h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.yoga-section p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Meditation section */
+.meditation-section {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.meditation-section h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.meditation-section p {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+.meditation-section img {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+/* Fitness slider section */
+.fitness-classes-slider {
+    padding: 20px 0;
+    background-color: #f9f9f9;
+}
+
+.fitness-classes-slider h2 {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.fitness-classes-slider p {
+    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #555;
+}
+
+.mySwiper {
+    padding: 0 20px;
+}
+
+.card-content {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.card-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.card-content h3 {
+    font-size: 1.5em;
+    margin: 15px 0;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .fitness-header h1 {
+        font-size: 2em;
+    }
+
+    .yoga-section h2, .meditation-section h2, .fitness-classes-slider h2 {
+        font-size: 2em;
+    }
+
+    .mySwiper {
+        padding: 0 10px;
+    }
+}

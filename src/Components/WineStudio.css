@@ -1,0 +1,92 @@
+.wine-studio-container {
+    font-family: 'Helvetica', sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .wine-header {
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  
+  .wine-header h1 {
+    font-size: 3rem;
+    color: #b22222;
+    text-transform: uppercase;
+  }
+  
+  .wine-header p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  .wine-details {
+    margin-bottom: 40px;
+  }
+  
+  .wine-details h2 {
+    font-size: 2rem;
+    color: #8b0000;
+    margin-bottom: 10px;
+  }
+  
+  .wine-details p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .wine-hours, .wine-event {
+    margin-top: 20px;
+  }
+  
+  .wine-hours h3, .wine-event h2 {
+    font-size: 1.5rem;
+    color: #b22222;
+    margin-bottom: 10px;
+  }
+  
+  .wine-event ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .wine-event ul li {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+  }
+  
+  .sommelier-details, .wine-experience {
+    margin-top: 40px;
+  }
+  
+  .sommelier-details h2, .wine-experience h2 {
+    font-size: 1.8rem;
+    color: #8b0000;
+  }
+  
+  .sommelier-details p, .wine-experience p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  .wine-footer {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .wine-footer a {
+    font-size: 1.2rem;
+    color: #b22222;
+    text-decoration: none;
+    border: 1px solid #b22222;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .wine-footer a:hover {
+    background-color: #b22222;
+    color: #fff;
+  }
+  

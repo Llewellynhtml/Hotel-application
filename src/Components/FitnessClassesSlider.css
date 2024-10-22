@@ -1,0 +1,52 @@
+.fitness-classes-slider {
+    margin: 20px 0; /* Adjust the margin as needed */
+}
+
+.fitness-classes-slider h2 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.fitness-classes-slider p {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #555; /* Adjust color for readability */
+}
+
+.mySwiper {
+    /* Set the swiper container */
+    padding: 20px;
+}
+
+.class-card {
+    /* Style for each fitness class card */
+    background-color: #fff; /* White background for cards */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+    text-align: center; /* Center text */
+    padding: 15px; /* Padding inside the card */
+    transition: transform 0.3s; /* Smooth scaling effect */
+}
+
+.class-card img {
+    width: 100%; /* Make the image responsive */
+    border-radius: 10px; /* Rounded corners for images */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.class-card h3 {
+    font-size: 1.5em;
+    margin: 10px 0; /* Space above and below the title */
+    color: #333; /* Darker text color for the title */
+}
+
+.class-card p {
+    font-size: 1em; /* Font size for the description */
+    color: #777; /* Lighter text color for the description */
+}
+
+.class-card:hover {
+    transform: scale(1.05); /* Scale effect on hover */
+}

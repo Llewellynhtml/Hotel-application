@@ -1,5 +1,8 @@
 import React from 'react';
-import './offers.css'; // Import the specific CSS for styling
+import './Offers.css'; // Import the specific CSS for styling
+import image1 from './data/ooct-pool-1.jpg'
+import image2 from './data/ooct-vista-interior-2.jpg'
+import image3 from './data/ooct-exterior-island-balcony-2.jpg'
 
 function Offers() {
   return (
@@ -7,7 +10,7 @@ function Offers() {
       {/* First Offer */}
       <div className="offer-content">
         <div className="offer-image">
-          <img src="path_to_your_image1.jpg" alt="One Escape" />
+          <img src={image1} alt="pool1" />
         </div>
         <div className="offer-text">
           <h1>One Escape</h1>
@@ -21,10 +24,10 @@ function Offers() {
         </div>
       </div>
 
-      {/* Second Offer */}
+      
       <div className="offer-content">
         <div className="offer-image">
-          <img src="path_to_your_image2.jpg" alt="Your Urban Retreat" />
+          <img src={image2} alt="interior" />
         </div>
         <div className="offer-text">
           <h1>Your Urban Retreat</h1>
@@ -48,10 +51,10 @@ function Offers() {
         </div>
       </div>
 
-      {/* Third Offer */}
+      
       <div className="offer-content">
         <div className="offer-image">
-          <img src="path_to_your_image3.jpg" alt="Nights on us" />
+          <img src={image3} alt="island-balcony" />
         </div>
         <div className="offer-text">
           <h1>Nights on Us</h1>
