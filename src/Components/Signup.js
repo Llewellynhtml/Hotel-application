@@ -11,12 +11,13 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [profileImage, setProfileImage] = useState(null); // New state for profile image
 
   const { user, loading, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
@@ -24,14 +25,14 @@ const Signup = () => {
       return;
     }
 
-    dispatch(signUp({ firstName, lastName, email, password }));
+    // Dispatch the signUp action with profileImage included
+    dispatch(signUp({ firstName, lastName, email, password, profileImage }));
   };
 
   useEffect(() => {
     if (user) {
       alert('Registered successfully!');
-      console.log("User data from local storage:", localStorage.getItem('user')); // Check local storage
-      navigate('/');
+      navigate('/'); // Redirect after successful registration
     }
   }, [user, navigate]);
 
@@ -74,6 +75,11 @@ const Signup = () => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
+        />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setProfileImage(e.target.files[0])} 
         />
         <button type="submit" disabled={loading}>
           {loading ? 'Creating Account...' : 'Create Account'}

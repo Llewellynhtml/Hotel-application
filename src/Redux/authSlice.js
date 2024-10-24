@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth'; 
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { auth, db } from '../config/firebase';
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Import required storage functions
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"; 
 
 const initialState = {
   user: null,
@@ -53,7 +53,6 @@ export const authSlice = createSlice({
   },
 });
 
-
 export const { 
   signInStart, 
   signInSuccess, 
@@ -66,7 +65,6 @@ export const {
   resetPasswordFailure
 } = authSlice.actions;
 
-
 export const signUp = ({ firstName, lastName, email, password, profileImage }) => async (dispatch) => {
   dispatch(signUpStart());
 
@@ -74,7 +72,6 @@ export const signUp = ({ firstName, lastName, email, password, profileImage }) =
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    
     await setDoc(doc(db, "users", user.uid), {
       firstName,
       lastName,
@@ -83,12 +80,10 @@ export const signUp = ({ firstName, lastName, email, password, profileImage }) =
       role: 'user',  
     });
 
-    
     if (profileImage) {
       await uploadProfileImage(profileImage, user.uid);
     }
 
-    
     saveUserToLocalStorage({ firstName, lastName, email, uid: user.uid });
 
     dispatch(signUpSuccess(user));
@@ -97,25 +92,19 @@ export const signUp = ({ firstName, lastName, email, password, profileImage }) =
   }
 };
 
-
 async function uploadProfileImage(file, userId) {
   const storage = getStorage();
   const storageRef = ref(storage, `profile-images/${userId}`);
-  
-  
-  await uploadBytes(storageRef, file);
 
+  await uploadBytes(storageRef, file);
   
   const downloadURL = await getDownloadURL(storageRef);
-
-
+  
   await setDoc(doc(db, "users", userId), { profileImageUrl: downloadURL }, { merge: true });
-
   
   localStorage.setItem("profileImageUrl", downloadURL);
   return downloadURL;
 }
-
 
 const saveUserToLocalStorage = ({ firstName, lastName, email, uid, profileImageUrl = '' }) => {
   localStorage.setItem('user', JSON.stringify({
@@ -134,6 +123,7 @@ export const signIn = (email, password) => async (dispatch) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
+    
     const userDoc = await getDoc(doc(db, 'users', user.uid));
     if (userDoc.exists()) {
       const userData = userDoc.data();
@@ -147,16 +137,15 @@ export const signIn = (email, password) => async (dispatch) => {
         profileImageUrl: userData.profileImageUrl || '', 
       });
 
-      dispatch(signInSuccess({ ...user, isAdmin }));
+      dispatch(signInSuccess({ ...user, ...userData, isAdmin }));
     } else {
-      dispatch(signInSuccess(user)); 
+      dispatch(signInFailure("User does not exist in Firestore"));
     }
   } catch (error) {
     dispatch(signInFailure(error.message));
   }
 };
 
-// Async thunk for resetting password
 export const resetPassword = ({ email }) => async (dispatch) => {
   dispatch(resetPasswordStart());
 

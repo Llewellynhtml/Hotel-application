@@ -1,47 +1,77 @@
 import React, { useEffect, useState } from 'react';
-import { getAuth, signOut } from 'firebase/auth'; // Import Firebase Auth methods
+import { getAuth, signOut } from 'firebase/auth'; 
 import { useNavigate } from 'react-router-dom';
-import './UserProfile.css'; // Add styling for the profile component
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBookings, fetchFavorites, fetchUserProfile } from '../redux/dataSlice';
+import './UserProfile.css'; 
 
 const UserProfile = () => {
-  const [user, setUser] = useState(null); // State to hold the logged-in user
+  const [user, setUser] = useState(null); 
   const navigate = useNavigate();
-  const auth = getAuth(); // Firebase Auth instance
+  const auth = getAuth(); 
+  const dispatch = useDispatch();
+  
+  const { bookings, favorites, userProfile, loading, error } = useSelector((state) => state.data);
 
-  // Fetch user info from Firebase Auth
   useEffect(() => {
     const currentUser = auth.currentUser;
     if (currentUser) {
-      // Assuming user's first name is stored in the displayName field of Firebase Auth
       setUser({
-        firstName: currentUser.displayName || "User",
+        uid: currentUser.uid,
         email: currentUser.email,
       });
+      
+      dispatch(fetchUserProfile(currentUser.uid)); 
+      dispatch(fetchBookings(currentUser.uid)); 
+      dispatch(fetchFavorites(currentUser.uid)); 
+    } else {
+      navigate('/signin');
     }
-  }, [auth]);
+  }, [auth, dispatch, navigate]);
 
-  // Handle Logout
   const handleLogout = async () => {
     try {
       await signOut(auth);
       alert('Logged out successfully!');
-      navigate('/signin'); // Redirect to the sign-in page after logging out
+      navigate('/signin'); 
     } catch (error) {
       alert('Error logging out. Please try again.');
     }
   };
 
-  if (!user) {
-    return <p>Loading...</p>; // Show loading while fetching user data
-  }
+  if (loading) return <p>Loading...</p>; 
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="profile-container">
       <h1>User Profile</h1>
-      <div className="profile-details">
-        <p><strong>First Name:</strong> {user.firstName}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-      </div>
+      {userProfile && (
+        <div className="profile-details">
+          <p><strong>First Name:</strong> {userProfile.firstName || "User"}</p>
+          <p><strong>Last Name:</strong> {userProfile.lastName || "Not provided"}</p>
+          <p><strong>Email:</strong> {userProfile.email}</p>
+        </div>
+      )}
+      ...
+      <h3>Your Bookings:</h3>
+      <ul>
+        {bookings.map((booking) => (
+          <li key={booking.id}>
+            {booking.roomName} - {booking.checkIn} to {booking.checkOut}
+            {booking.paymentStatus ? (
+              <span style={{ color: 'green' }}> ✔️</span>
+            ) : (
+              <span style={{ color: 'red' }}> ❌</span>
+            )}
+          </li>
+        ))}
+      </ul>
+      <h3>Your Favorite Rooms:</h3>
+      <ul>
+        {favorites.map((favorite) => (
+          <li key={favorite.id}>{favorite.roomName}</li>
+        ))}
+      </ul>
       <button onClick={handleLogout} className="logout-button">
         Logout
       </button>

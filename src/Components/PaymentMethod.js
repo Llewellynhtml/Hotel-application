@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCcVisa, faCcMastercard, faCcPaypal } from '@fortawesome/free-brands-svg-icons';
-import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { PayPalButtons } from '@paypal/react-paypal-js';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './PaymentMethod.css';
 import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
-import { db } from "../config/firebase"; 
+import { db, auth } from '../config/firebase'; // Ensure auth is imported
+import { useDispatch } from 'react-redux';
+import { addUserBookings } from '../Redux/dbslice';
 
 const PaymentMethod = ({ selectedRoomId }) => {
   const [paymentType, setPaymentType] = useState('');
@@ -17,8 +19,8 @@ const PaymentMethod = ({ selectedRoomId }) => {
   const [notification, setNotification] = useState('');
   const [selectedRoom, setSelectedRoom] = useState(null); 
   const navigate = useNavigate();
-  const location=useLocation()
-  console.log("location is:",location.state)
+  const location = useLocation();
+  const dispatch = useDispatch(); 
 
   useEffect(() => {
     const fetchRoomData = async () => {
@@ -27,7 +29,6 @@ const PaymentMethod = ({ selectedRoomId }) => {
           const roomDoc = await getDoc(doc(db, 'Rooms', selectedRoomId));
           if (roomDoc.exists()) {
             setSelectedRoom(roomDoc.data());
-            console.log("Selected Room is:",roomDoc)
           } else {
             console.error("Room not found");
             setNotification("Room not found");
@@ -42,17 +43,7 @@ const PaymentMethod = ({ selectedRoomId }) => {
     fetchRoomData();
   }, [selectedRoomId]);
 
-  const addBookingToFirestore = async (booking) => {
-    try {
-      await addDoc(collection(db, 'bookings'), booking);
-      console.log('Booking added successfully:', booking);
-    } catch (error) {
-      console.error('Error adding booking to Firestore:', error.message);
-      setNotification('There was an error processing your booking. Please try again. Error: ' + error.message);
-    }
-  };
-  
-  const handleCardSubmit = (e) => {
+  const handleCardSubmit = async (e) => {
     e.preventDefault();
 
     if (cardNumber.length < 16 || securityCode.length < 3 || expiryMonth === '' || expiryYear === '') {
@@ -60,22 +51,12 @@ const PaymentMethod = ({ selectedRoomId }) => {
       return;
     }
 
-    // const bookingData = {
-    //   clientName: "John",
-    //   surname: "Doe",
-    //   roomName: selectedRoom?.name,
-    //   roomPrice: selectedRoom?.price,
-    //   startDate: "2024-09-30",
-    //   endDate: "2024-10-05",
-    //   adults: 2,
-    //   children: 1,
-    //   totalPrice: selectedRoom?.price * 5,
-    //   paymentType: 'Card',
-    // };
-
-    // addBookingToFirestore(bookingData);
-
     setNotification('Your booking has been reserved!');
+    
+    const bookingData = location.state; 
+
+    
+    dispatch(addUserBookings(bookingData));
 
     setTimeout(() => {
       resetForm();
@@ -116,40 +97,24 @@ const PaymentMethod = ({ selectedRoomId }) => {
       </div>
 
       {paymentType === 'paypal' && (
-        // <PayPalScriptProvider options={{ "client-id": "your-client-id-here" }}>
-          <PayPalButtons
-            onApprove={(data, actions) => {
-              return actions.order.capture().then((details) => {
-                // const bookingData = {
-                //   clientName: "John",
-                //   surname: "Doe",
-                //   roomName: selectedRoom?.name,
-                //   roomPrice: selectedRoom?.price,
-                //   startDate: "2024-09-30",
-                //   endDate: "2024-10-05",
-                //   adults: 2,
-                //   children: 1,
-                //   totalPrice: selectedRoom?.price * 5,
-                //   paymentType: 'PayPal',
-                // };
-
-                setNotification(`Transaction completed by ${details.payer.name.given_name}`);
-                addBookingToFirestore(location.state);
-
-                setTimeout(() => {
-                  navigate('/rooms');
-                }, 2000);
-              }).catch((error) => {
-                console.error("PayPal transaction failed:", error);
-                setNotification("PayPal transaction failed. Please try again.");
-              });
-            }}
-            onError={(err) => {
-              console.error("PayPal error:", err);
-              setNotification("Error processing PayPal payment.");
-            }}
-          />
-        // </PayPalScriptProvider>
+        <PayPalButtons
+          onApprove={(data, actions) => {
+            return actions.order.capture().then((details) => {
+              setNotification(`Transaction completed by ${details.payer.name.given_name}`);
+              dispatch(addUserBookings(location.state)); 
+              setTimeout(() => {
+                navigate('/rooms');
+              }, 2000);
+            }).catch((error) => {
+              console.error("PayPal transaction failed:", error);
+              setNotification("PayPal transaction failed. Please try again.");
+            });
+          }}
+          onError={(err) => {
+            console.error("PayPal error:", err);
+            setNotification("Error processing PayPal payment.");
+          }}
+        />
       )}
 
       {paymentType === 'card' && (

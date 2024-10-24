@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FaPhone, FaEnvelope, FaCaretDown, FaUserCircle, FaHeart } from "react-icons/fa";
+import { FaPhone, FaEnvelope, FaCaretDown, FaUserCircle } from "react-icons/fa";
 import { getAuth, signOut } from "firebase/auth";
 import logo from "../One&Only 1.png";
 import "./nav.css";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchBookingToFirestore } from "../Redux/dbslice";
+
+
 
 function Navbar() {
   const [showAccommodationDropdown, setShowAccommodationDropdown] = useState(false);
@@ -12,12 +17,22 @@ function Navbar() {
   const [showExperienceDropdown, setShowExperienceDropdown] = useState(false);
   const [showOffersDropdown, setShowOffersDropdown] = useState(false);
   const [showDiningDropdown, setShowDiningDropdown] = useState(false);
-  const [showEventsDropdown, setShowEventsDropdown] = useState(false); // Added for Events dropdown
-  const [showAboutDropdown, setShowAboutDropdown] = useState(false); // Added for About dropdown
+  const [showEventsDropdown, setShowEventsDropdown] = useState(false);
+  const [showAboutDropdown, setShowAboutDropdown] = useState(false);
   const [user, setUser] = useState(null);
   const [profilePic, setProfilePic] = useState("");
+  const [bookings, setBookings] = useState([]); 
+  const [favorites, setFavorites] = useState([]); 
+  const [showFavoritesModal, setShowFavoritesModal] = useState(true);
+  const [showBookingsModal, setShowBookingsModal] = useState(true); 
   const auth = getAuth();
   const navigate = useNavigate();
+
+  const { userBookings} = useSelector(state => state.data)
+
+  const dispatch = useDispatch() ;
+
+  console.log(userBookings)
 
   const toggleAccommodationDropdown = () => {
     setShowAccommodationDropdown((prev) => !prev);
@@ -70,12 +85,16 @@ function Navbar() {
   };
 
   const handleViewProfile = () => {
+    console.log("lllllkjh", bookings);
     setShowProfileModal(true);
     setShowProfileDropdown(false);
   };
 
   const handleCloseModal = () => {
     setShowProfileModal(false);
+    setShowFavoritesModal(false);
+    setShowBookingsModal(false);
+    
   };
 
   const handleProfilePicChange = (e) => {
@@ -89,15 +108,37 @@ function Navbar() {
     }
   };
 
+  const addBooking = (roomDetails) => {
+    setBookings((prevBookings) => [
+      ...prevBookings,
+      { ...roomDetails, paymentStatus: true }, 
+    ]);
+  };
+
+  const addFavorite = (roomDetails) => {
+    setFavorites((prevFavorites) => [...prevFavorites, roomDetails]);
+  };
+
+  
+
+  const exampleRoomDetails = {
+    roomName: "Ocean View Suite",
+    checkIn: "2024-01-01",
+    endDate: "2024-01-05",
+    totalPrice: "$1000",
+    adults: 2,
+    children: 1,
+  };
+
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-
+  
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         setUser(currentUser);
         const userProfile = {
-          name: currentUser.displayName ? currentUser.displayName.split(" ")[0] : "User",
-          surname: currentUser.displayName ? currentUser.displayName.split(" ")[1] : "Not provided",
+          firstName: currentUser.displayName ? currentUser.displayName.split(" ")[0] : "User",
+          lastName: currentUser.displayName ? currentUser.displayName.split(" ")[1] : "Not provided",
           email: currentUser.email,
         };
         localStorage.setItem("userProfile", JSON.stringify(userProfile));
@@ -106,14 +147,18 @@ function Navbar() {
         localStorage.removeItem("userProfile");
       }
     });
-
+  
     return () => {
       document.removeEventListener("click", handleClickOutside);
       unsubscribe();
     };
   }, [auth]);
+  
 
-  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+useEffect (()=>{
+  dispatch( fetchBookingToFirestore())
+} , [])
+  const userProfile = JSON.parse(localStorage.getItem("userProfile"));  
 
   return (
     <>
@@ -154,7 +199,7 @@ function Navbar() {
             <>
               <Link to="/signin" className="nav-auth-btn">SignIn</Link>
               <Link to="/signup" className="nav-auth-btn">SignUp</Link>
-              <button className="book-now">Book Now</button>
+              <button className="book-now" onClick={() => addBooking(exampleRoomDetails)}>Book Now</button> 
             </>
           )}
         </div>
@@ -185,7 +230,7 @@ function Navbar() {
             onClick={toggleOffersDropdown}
             aria-expanded={showOffersDropdown}
           >
-            Offer <FaCaretDown />
+            Offers <FaCaretDown />
           </button>
           {showOffersDropdown && (
             <div className="dropdown-content">
@@ -259,7 +304,99 @@ function Navbar() {
         <div className="modal-overlay" onClick={handleCloseModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>User Profile</h2>
-            {/* Modal content */}
+            <div className="profile-details">
+              {userProfile && (
+                <>
+                  <div className="profile-image-container">
+                    <img 
+                      src={profilePic || "default-profile-pic-url"} 
+                      alt="Profile" 
+                      className="profile-image" 
+                    />
+                  </div>
+                  <p><strong>firstName:</strong> {userProfile.firstName}</p>
+                  <p><strong>lastName:</strong> {userProfile.lastName}</p>
+                  <p><strong>Email:</strong> {userProfile.email}</p>
+                  <input type="file" onChange={handleProfilePicChange} />
+
+                  
+                  <div className="links-container">
+                    <button 
+                      className="favorites-link" 
+                      onClick={() => {
+                        addFavorite("Ocean View Suite"); 
+                        setShowFavoritesModal(true);
+                      }}
+                    >
+                      Show Favorites ❤️
+                    </button>
+                    <button 
+                      className="bookings-link" 
+                      onClick={() => setShowBookingsModal(true)}
+                      
+                    >
+                      Show Bookings ✔️
+                    </button>
+                  </div>
+
+                  
+                  {showBookingsModal && (
+                    <div className="bookings-table">
+                      <h3>Your Bookings</h3>
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>roomName</th>
+                            <th>firstName</th>
+                            <th>lastName</th>
+                            <th>startDate</th>
+                            <th>endDate</th>
+                            <th>TotalPrice</th>
+                            <th>Adults</th>
+                            <th>Children</th>
+                            <th>Payment Status</th> 
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {bookings.map((booking, index) => (
+                            <tr key={index}>
+                               <td>{booking.roomName}</td>
+                              <td>{booking.firstName}</td>
+                              <td>{booking.lastName}</td>
+                              <td>{booking.startDate}</td>
+                              <td>{booking.endDate}</td>
+                              <td>{booking.totalPrice}</td>
+                              <td>{booking.adults}</td>
+                              <td>{booking.children}</td>
+                              <td>
+                                {booking.paymentStatus ? (
+                                  <span role="img" aria-label="Payment Successful">✅</span> 
+                                ) : (
+                                  <span style={{ padding: "10px" }}></span> 
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+
+                  
+                  {showFavoritesModal && (
+                    <div className="favorites-table">
+                      <h3>Your Favorites</h3>
+                      <ul>
+                        {favorites.map((favorite, index) => (
+                          <li key={index}>{favorite}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+            <button onClick={handleCloseModal} className="close-button">Close</button>
           </div>
         </div>
       )}

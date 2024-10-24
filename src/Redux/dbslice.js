@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getDocs, collection, addDoc, setDoc, doc } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { db, auth } from "../config/firebase";
 
 const initialState = {
   data: [],
+  userBookings: [] ,
   loading: false,
   error: null,
 };
@@ -20,6 +21,11 @@ const dataSlice = createSlice({
       state.data = action.payload;
       state.loading = false;
     },
+
+    setUserBookings(state, action) {
+      state.userBookings = action.payload;
+      state.loading = false;
+    },
     setError(state, action) {
       state.error = action.payload;
       state.loading = false;
@@ -30,10 +36,9 @@ const dataSlice = createSlice({
   },
 });
 
-export const { setLoading, setData, setError, addBookingToState } = dataSlice.actions;
+export const { setLoading, setData, setError, addBookingToState,  setUserBookings } = dataSlice.actions;
 export default dataSlice.reducer;
 
-// Fetch Rooms
 export const fetchRooms = () => async (dispatch) => {
   dispatch(setLoading());
   try {
@@ -50,11 +55,10 @@ export const fetchRooms = () => async (dispatch) => {
   }
 };
 
-// Fetch Bookings for a specific user
 export const fetchBookings = (userId) => async (dispatch) => {
   dispatch(setLoading());
   try {
-    const bookingsRef = collection(db, `users/${userId}/bookings`);
+    const bookingsRef = collection(db, `users/${userId}/Bookings`); 
     const querySnapshot = await getDocs(bookingsRef);
     const bookings = querySnapshot.docs.map((doc) => ({
       id: doc.id,
@@ -68,7 +72,6 @@ export const fetchBookings = (userId) => async (dispatch) => {
   }
 };
 
-// Fetch Favorite Rooms for a specific user
 export const fetchFavorites = (userId) => async (dispatch) => {
   dispatch(setLoading());
   try {
@@ -86,7 +89,6 @@ export const fetchFavorites = (userId) => async (dispatch) => {
   }
 };
 
-// Adding a favorite room for a user
 export const addFavoriteRoom = (userId, roomId, roomData) => async (dispatch) => {
   try {
     await setDoc(doc(db, `users/${userId}/favorites`, roomId), roomData);
@@ -97,18 +99,50 @@ export const addFavoriteRoom = (userId, roomId, roomData) => async (dispatch) =>
   }
 };
 
-// Adding new booking
-export const addBookings = (bookingData) => async (dispatch) => {
+export const addUserBookings = (bookingDetails) => async (dispatch) => {
+  const uid = auth.currentUser?.uid; 
+  console.log(uid);
+  
+  if (!uid) {
+    console.error("User is not authenticated");
+    return; 
+  }
+
+  dispatch(setLoading());
+
   try {
-    dispatch(setLoading(true));
-    const docRef = await addDoc(collection(db, "bookings"), bookingData);
-    console.log("Document written with ID: ", docRef.id);
+  
+    const bookingRef = await addDoc(collection(db, "users", uid, "Bookings"), bookingDetails);
     
-    // Dispatching the new booking to add it to the state
-    dispatch(addBookingToState({ id: docRef.id, ...bookingData }));
-    dispatch(setLoading(false)); // End loading
+    
+    dispatch(addBookingToState({ id: bookingRef.id, ...bookingDetails }));
+    console.log("Booking successfully added to Firestore under user:", uid);
   } catch (error) {
-    console.error("Error adding booking: ", error);
+    console.error("Error saving booking under user:", error.message);
     dispatch(setError(error.message));
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
+
+
+
+export const fetchBookingToFirestore =  () => async (dispatch) => {
+  const uid = auth.currentUser.uid;
+  dispatch(setLoading());
+  try {
+      const bookingsRef = collection(db,  "users", uid, "Bookings");
+      const querySnapshot = await getDocs(bookingsRef);
+      console.log(querySnapshot)
+      const userBookings = querySnapshot.docs
+          .map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+          }))
+
+          console.log(userBookings)
+       dispatch( setUserBookings(userBookings))
+  } catch (error) {
+      dispatch(setError(error.message));
   }
 };
