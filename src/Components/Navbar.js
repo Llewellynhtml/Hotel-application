@@ -8,10 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchBookingToFirestore } from "../Redux/dbslice";
 
-
-
 function Navbar() {
-  const [showAccommodationDropdown, setShowAccommodationDropdown] = useState(false);
+  const [showAccommodationDropdown, setShowAccommodationDropdown] =
+    useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showExperienceDropdown, setShowExperienceDropdown] = useState(false);
@@ -21,18 +20,19 @@ function Navbar() {
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
   const [user, setUser] = useState(null);
   const [profilePic, setProfilePic] = useState("");
-  const [bookings, setBookings] = useState([]); 
-  const [favorites, setFavorites] = useState([]); 
+  const [bookings, setBookings] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [showFavoritesModal, setShowFavoritesModal] = useState(true);
-  const [showBookingsModal, setShowBookingsModal] = useState(true); 
+  const [showBookingsModal, setShowBookingsModal] = useState(false); // **Change: Initialized to false**
+  const [bookingsLoaded, setBookingsLoaded] = useState(false); // **Change: Added state for bookings loaded**
   const auth = getAuth();
   const navigate = useNavigate();
 
-  const { userBookings} = useSelector(state => state.data)
+  const { userBookings } = useSelector((state) => state.data);
 
-  const dispatch = useDispatch() ;
+  const dispatch = useDispatch();
 
-  console.log(userBookings)
+  console.log(userBookings);
 
   const toggleAccommodationDropdown = () => {
     setShowAccommodationDropdown((prev) => !prev);
@@ -59,7 +59,10 @@ function Navbar() {
   };
 
   const handleClickOutside = (e) => {
-    if (!e.target.closest(".dropdown") && !e.target.closest(".profile-dropdown")) {
+    if (
+      !e.target.closest(".dropdown") &&
+      !e.target.closest(".profile-dropdown")
+    ) {
       setShowAccommodationDropdown(false);
       setShowProfileDropdown(false);
       setShowExperienceDropdown(false);
@@ -85,7 +88,6 @@ function Navbar() {
   };
 
   const handleViewProfile = () => {
-    console.log("lllllkjh", bookings);
     setShowProfileModal(true);
     setShowProfileDropdown(false);
   };
@@ -94,7 +96,6 @@ function Navbar() {
     setShowProfileModal(false);
     setShowFavoritesModal(false);
     setShowBookingsModal(false);
-    
   };
 
   const handleProfilePicChange = (e) => {
@@ -111,15 +112,13 @@ function Navbar() {
   const addBooking = (roomDetails) => {
     setBookings((prevBookings) => [
       ...prevBookings,
-      { ...roomDetails, paymentStatus: true }, 
+      { ...roomDetails, paymentStatus: true },
     ]);
   };
 
   const addFavorite = (roomDetails) => {
     setFavorites((prevFavorites) => [...prevFavorites, roomDetails]);
   };
-
-  
 
   const exampleRoomDetails = {
     roomName: "Ocean View Suite",
@@ -132,13 +131,17 @@ function Navbar() {
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
-  
+
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         setUser(currentUser);
         const userProfile = {
-          firstName: currentUser.displayName ? currentUser.displayName.split(" ")[0] : "User",
-          lastName: currentUser.displayName ? currentUser.displayName.split(" ")[1] : "Not provided",
+          firstName: currentUser.displayName
+            ? currentUser.displayName.split(" ")[0]
+            : "User",
+          lastName: currentUser.displayName
+            ? currentUser.displayName.split(" ")[1]
+            : "Not provided",
           email: currentUser.email,
         };
         localStorage.setItem("userProfile", JSON.stringify(userProfile));
@@ -147,25 +150,41 @@ function Navbar() {
         localStorage.removeItem("userProfile");
       }
     });
-  
+
     return () => {
       document.removeEventListener("click", handleClickOutside);
       unsubscribe();
     };
   }, [auth]);
-  
 
-useEffect (()=>{
-  dispatch( fetchBookingToFirestore())
-} , [])
-  const userProfile = JSON.parse(localStorage.getItem("userProfile"));  
+  useEffect(() => {
+    dispatch(fetchBookingToFirestore());
+  }, []);
+
+  const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+
+  // **Change: New function to handle showing bookings**
+  const handleShowBookings = () => {
+    if (!bookingsLoaded) {
+      dispatch(fetchBookingToFirestore()).then(() => {
+        setBookingsLoaded(true);
+        setShowBookingsModal(true);
+      });
+    } else {
+      setShowBookingsModal(true);
+    }
+  };
 
   return (
     <>
       <nav className="navbar">
         <div className="nav-left">
           <FaPhone className="nav-icon" title="Call Us" aria-label="Call Us" />
-          <FaEnvelope className="nav-icon" title="Email Us" aria-label="Email Us" />
+          <FaEnvelope
+            className="nav-icon"
+            title="Email Us"
+            aria-label="Email Us"
+          />
         </div>
 
         <div className="nav-center">
@@ -197,9 +216,18 @@ useEffect (()=>{
             </div>
           ) : (
             <>
-              <Link to="/signin" className="nav-auth-btn">SignIn</Link>
-              <Link to="/signup" className="nav-auth-btn">SignUp</Link>
-              <button className="book-now" onClick={() => addBooking(exampleRoomDetails)}>Book Now</button> 
+              <Link to="/signin" className="nav-auth-btn">
+                SignIn
+              </Link>
+              <Link to="/signup" className="nav-auth-btn">
+                SignUp
+              </Link>
+              <button
+                className="book-now"
+                onClick={() => addBooking(exampleRoomDetails)}
+              >
+                Book Now
+              </button>
             </>
           )}
         </div>
@@ -218,8 +246,12 @@ useEffect (()=>{
           </button>
           {showExperienceDropdown && (
             <div className="dropdown-content">
-              <Link to="/experience/wellness" className="dropdown-link">Wellness</Link>
-              <Link to="/experience/fitness" className="dropdown-link">Fitness</Link>
+              <Link to="/experience/wellness" className="dropdown-link">
+                Wellness
+              </Link>
+              <Link to="/experience/fitness" className="dropdown-link">
+                Fitness
+              </Link>
             </div>
           )}
         </div>
@@ -234,7 +266,9 @@ useEffect (()=>{
           </button>
           {showOffersDropdown && (
             <div className="dropdown-content">
-              <Link to="/Offers" className="dropdown-link">Choose More</Link>
+              <Link to="/Offers" className="dropdown-link">
+                Choose More
+              </Link>
             </div>
           )}
         </div>
@@ -249,7 +283,9 @@ useEffect (()=>{
           </button>
           {showAccommodationDropdown && (
             <div className="dropdown-content">
-              <Link to="/accommodation/rooms" className="dropdown-link">Rooms</Link>
+              <Link to="/accommodation/rooms" className="dropdown-link">
+                Rooms
+              </Link>
             </div>
           )}
         </div>
@@ -264,7 +300,9 @@ useEffect (()=>{
           </button>
           {showDiningDropdown && (
             <div className="dropdown-content">
-              <Link to="/dining/winestudio" className="dropdown-link">Wine Studio</Link>
+              <Link to="/dining/winestudio" className="dropdown-link">
+                Wine Studio
+              </Link>
             </div>
           )}
         </div>
@@ -279,7 +317,9 @@ useEffect (()=>{
           </button>
           {showEventsDropdown && (
             <div className="dropdown-content">
-              <Link to="/events/corporate" className="dropdown-link">Corporate Events</Link>
+              <Link to="/events/weddings" className="dropdown-link">
+                Weddings
+              </Link>
             </div>
           )}
         </div>
@@ -294,7 +334,9 @@ useEffect (()=>{
           </button>
           {showAboutDropdown && (
             <div className="dropdown-content">
-              <Link to="/about/us" className="dropdown-link">About Us</Link>
+              <Link to="/about/overview" className="dropdown-link">
+                Overview
+              </Link>
             </div>
           )}
         </div>
@@ -307,72 +349,77 @@ useEffect (()=>{
             <div className="profile-details">
               {userProfile && (
                 <>
-                  <div className="profile-image-container">
-                    <img 
-                      src={profilePic || "default-profile-pic-url"} 
-                      alt="Profile" 
-                      className="profile-image" 
-                    />
-                  </div>
-                  <p><strong>firstName:</strong> {userProfile.firstName}</p>
-                  <p><strong>lastName:</strong> {userProfile.lastName}</p>
-                  <p><strong>Email:</strong> {userProfile.email}</p>
-                  <input type="file" onChange={handleProfilePicChange} />
+                  <p>
+                    <strong>
+                      {userProfile.firstName} {userProfile.lastName}
+                    </strong>
+                  </p>
+                  <p>Email: {userProfile.email}</p>
 
-                  
                   <div className="links-container">
-                    <button 
-                      className="favorites-link" 
+                    <button
+                      className="favorites-link"
                       onClick={() => {
-                        addFavorite("Ocean View Suite"); 
+                        addFavorite("Ocean View Suite");
                         setShowFavoritesModal(true);
                       }}
                     >
                       Show Favorites ❤️
                     </button>
-                    <button 
-                      className="bookings-link" 
-                      onClick={() => setShowBookingsModal(true)}
-                      
+                    <button
+                      className="bookings-link"
+                      onClick={handleShowBookings} // **Change: Updated to call the new function**
                     >
                       Show Bookings ✔️
                     </button>
                   </div>
 
-                  
                   {showBookingsModal && (
                     <div className="bookings-table">
                       <h3>Your Bookings</h3>
                       <table>
                         <thead>
                           <tr>
-                            <th>roomName</th>
-                            <th>firstName</th>
-                            <th>lastName</th>
+                            <th>Room Name</th>
                             <th>startDate</th>
                             <th>endDate</th>
-                            <th>TotalPrice</th>
+                            <th>Total Price</th>
                             <th>Adults</th>
                             <th>Children</th>
-                            <th>Payment Status</th> 
+                            <th>Payment Status</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {bookings.map((booking, index) => (
+                          {userBookings.map((booking, index) => (
                             <tr key={index}>
-                               <td>{booking.roomName}</td>
-                              <td>{booking.firstName}</td>
-                              <td>{booking.lastName}</td>
-                              <td>{booking.startDate}</td>
-                              <td>{booking.endDate}</td>
+                              <td>{booking.roomName}</td>
+                              <td>
+                                {booking.checkIn
+                                  ? booking.checkIn
+                                      .toDate()
+                                      .toLocaleDateString()
+                                  : "N/A"}
+                              </td>
+                              <td>
+                                {booking.endDate
+                                  ? booking.endDate
+                                      .toDate()
+                                      .toLocaleDateString()
+                                  : "N/A"}
+                              </td>
                               <td>{booking.totalPrice}</td>
                               <td>{booking.adults}</td>
                               <td>{booking.children}</td>
                               <td>
                                 {booking.paymentStatus ? (
-                                  <span role="img" aria-label="Payment Successful">✅</span> 
+                                  <span
+                                    role="img"
+                                    aria-label="Payment Successful"
+                                  >
+                                    ✅
+                                  </span>
                                 ) : (
-                                  <span style={{ padding: "10px" }}></span> 
+                                  <span style={{ padding: "10px" }}></span>
                                 )}
                               </td>
                             </tr>
@@ -381,22 +428,13 @@ useEffect (()=>{
                       </table>
                     </div>
                   )}
-
-                  
-                  {showFavoritesModal && (
-                    <div className="favorites-table">
-                      <h3>Your Favorites</h3>
-                      <ul>
-                        {favorites.map((favorite, index) => (
-                          <li key={index}>{favorite}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  {/* Other modals */}
                 </>
               )}
             </div>
-            <button onClick={handleCloseModal} className="close-button">Close</button>
+            <button onClick={handleCloseModal} className="close-button">
+              Close
+            </button>
           </div>
         </div>
       )}
