@@ -1,13 +1,17 @@
 .Adv-container {
   display: flex;
-  padding-right: 750px;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  width: 50%;
-  margin: 100px auto; /* Center the container */
+  width: 90%;
+  max-width: 1200px; 
+  margin: 50px auto;
+  padding: 20px;
 }
 
 .adv-title {
-  margin-top: 100px;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 .adv-line {
@@ -18,42 +22,61 @@
 }
 
 .adv-p {
-  font-size: 14px;
-  width: 269px;
-}
-
-.explore-btn {
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 15px;
-  width: 100px;
-}
-
-.explore-btn:hover {
-  background-color: #0056b3;
+  font-size: 1rem;
+  width: 100%; 
+  max-width: 300px; 
 }
 
 .Adv-card {
   display: flex;
-  padding-left: 200px;
-  gap: 50px;
+  flex-wrap: wrap; 
+  gap: 20px;
+  justify-content: center; 
 }
 
 .adv-item {
-  width: 300px; /* Fixed width for each item */
-  height: 600px; /* Fixed height for each item */
+  width: 100%;
+  max-width: 300px; 
   display: flex;
-  flex-direction: column; /* Arrange items in a column */
-  align-items: center; /* Center items horizontally */
+  flex-direction: column; 
+  align-items: center;
+  margin-bottom: 20px; 
 }
 
 .adv-img {
   width: 100%;
-  height: 400px; /* Fixed height for images */
-  object-fit: cover; /* Ensures aspect ratio is maintained */
+  height: auto; 
+  max-height: 400px;
+  object-fit: cover;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+}
+
+
+@media (max-width: 768px) {
+  .adv-title h1 {
+    font-size: 1.5rem;
+  }
+  .adv-p {
+    font-size: 0.9rem;
+  }
+  .Adv-card {
+    gap: 15px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .adv-title h1 {
+    font-size: 1.2rem;
+  }
+  .adv-p {
+    font-size: 0.8rem;
+  }
+  .adv-item {
+    max-width: 90%; 
+  }
+  .adv-img {
+    max-height: 300px; 
+  }
 }

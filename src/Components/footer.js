@@ -1,5 +1,5 @@
 import React from 'react';
-import './footer.css'; 
+import './footer.css';
 import logs from './data/One&OnlyN ITALIC B.png';
 // FontAwesome imports
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,6 @@ const Footer = () => {
     <div>
       <footer className="footer-hero">
         <div className="footer-container">
-
           {/* Logo on the left */}
           <div className="footer-logo">
             <img src={logs} alt="One&Only Cape Town Logo" />
@@ -50,10 +49,8 @@ const Footer = () => {
           </div>
         </div>
 
-      
         <hr />
 
-        
         <div className="footer-social">
           <h3 className='HS3'>Follow Us</h3>
           <ul className="social-icons">
@@ -74,7 +71,6 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-
       </footer>
     </div>
   );

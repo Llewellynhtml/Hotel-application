@@ -6,7 +6,7 @@ import logo from "../One&Only 1.png";
 import "./nav.css";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchBookingToFirestore } from "../Redux/dbslice";
+import { fetchBookingToFirestore, fetchUserLikedRooms } from "../Redux/dbslice";
 
 function Navbar() {
   const [showAccommodationDropdown, setShowAccommodationDropdown] =
@@ -18,21 +18,18 @@ function Navbar() {
   const [showDiningDropdown, setShowDiningDropdown] = useState(false);
   const [showEventsDropdown, setShowEventsDropdown] = useState(false);
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
-  const [user, setUser] = useState(null);
-  const [profilePic, setProfilePic] = useState("");
+  const [user, setUser] = useState(null)
   const [bookings, setBookings] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [showFavoritesModal, setShowFavoritesModal] = useState(true);
-  const [showBookingsModal, setShowBookingsModal] = useState(false); // **Change: Initialized to false**
-  const [bookingsLoaded, setBookingsLoaded] = useState(false); // **Change: Added state for bookings loaded**
+  const [showBookingsModal, setShowBookingsModal] = useState(false);
+  const [bookingsLoaded, setBookingsLoaded] = useState(false); 
   const auth = getAuth();
   const navigate = useNavigate();
 
-  const { userBookings } = useSelector((state) => state.data);
+  const { userBookings, userLikedRooms } = useSelector((state) => state.data);
 
   const dispatch = useDispatch();
-
-  console.log(userBookings);
 
   const toggleAccommodationDropdown = () => {
     setShowAccommodationDropdown((prev) => !prev);
@@ -98,16 +95,6 @@ function Navbar() {
     setShowBookingsModal(false);
   };
 
-  const handleProfilePicChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfilePic(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const addBooking = (roomDetails) => {
     setBookings((prevBookings) => [
@@ -122,7 +109,7 @@ function Navbar() {
 
   const exampleRoomDetails = {
     roomName: "Ocean View Suite",
-    checkIn: "2024-01-01",
+    startDate: "2024-01-01",
     endDate: "2024-01-05",
     totalPrice: "$1000",
     adults: 2,
@@ -159,11 +146,11 @@ function Navbar() {
 
   useEffect(() => {
     dispatch(fetchBookingToFirestore());
+    dispatch(fetchUserLikedRooms());
   }, []);
 
   const userProfile = JSON.parse(localStorage.getItem("userProfile"));
 
-  // **Change: New function to handle showing bookings**
   const handleShowBookings = () => {
     if (!bookingsLoaded) {
       dispatch(fetchBookingToFirestore()).then(() => {
@@ -368,7 +355,7 @@ function Navbar() {
                     </button>
                     <button
                       className="bookings-link"
-                      onClick={handleShowBookings} // **Change: Updated to call the new function**
+                      onClick={handleShowBookings}
                     >
                       Show Bookings ✔️
                     </button>
@@ -386,7 +373,6 @@ function Navbar() {
                             <th>Total Price</th>
                             <th>Adults</th>
                             <th>Children</th>
-                            <th>Payment Status</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -394,8 +380,8 @@ function Navbar() {
                             <tr key={index}>
                               <td>{booking.roomName}</td>
                               <td>
-                                {booking.checkIn
-                                  ? booking.checkIn
+                                {booking.startDate
+                                  ? booking.startDate
                                       .toDate()
                                       .toLocaleDateString()
                                   : "N/A"}
@@ -428,7 +414,33 @@ function Navbar() {
                       </table>
                     </div>
                   )}
-                  {/* Other modals */}
+                  {showFavoritesModal && (
+                    <div className="modal-overlay" onClick={handleCloseModal}>
+                      <div
+                        className="modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <h2>Your Favorite Rooms</h2>
+                        {userLikedRooms.length > 0 ? (
+                          <ul>
+                            {userLikedRooms.map((room) => (
+                              <li key={room.id}>
+                                <p>{room.name}</p>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>No favorite rooms found.</p>
+                        )}
+                        <button
+                          onClick={handleCloseModal}
+                          className="close-button"
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </>
               )}
             </div>

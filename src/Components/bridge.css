@@ -1,23 +1,45 @@
 .bridge {
-    padding: 20px;
-    background-color: #ffffff00; 
-    text-align: center; 
-    margin-top: 20px; 
-  }
-  
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0);
+  text-align: center;
+  margin-top: 20px;
+}
+
+.bridge h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #1b1a1a;
+}
+
+.bridge p {
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: #2e2e2e;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
   .bridge h1 {
-    font-size: 2.5rem; 
-    margin-bottom: 15px;
-    color: #1b1a1a; 
-  }
-  
-  .bridge p {
-    font-size: 1.4rem; 
-    line-height: 1.5; 
-    color: #2e2e2e; 
-    max-width: 900px; 
-    margin: 0 auto; 
+    font-size: 2rem;
   }
 
-  
-  
+  .bridge p {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .bridge {
+    padding: 15px;
+  }
+
+  .bridge h1 {
+    font-size: 1.5rem;
+  }
+
+  .bridge p {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}

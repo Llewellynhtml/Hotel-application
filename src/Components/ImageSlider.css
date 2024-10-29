@@ -1,12 +1,12 @@
 .slider-container {
   width: 100%;
-  margin: 15px;
+  max-width: 1200px;
+  margin: 20px auto;
 }
 
 .mySwiper {
-  width: 2400px;
-  height: 620px;
-
+  width: 100%;
+  height: auto;
 }
 
 .card-content {
@@ -17,17 +17,31 @@
 }
 
 .card-content img {
-  width: 800px;
+  width: 100%;
+  max-width: 400px;
   border-radius: 10px;
-  height: 500px;
-  font-size: 20px;
+  height: auto;
 }
 
 .card-content h3 {
   margin: 10px 0;
+  font-size: 1.2rem;
 }
 
-.slider-link {
-  color: #007bff;
-  text-decoration: none;
+@media (max-width: 768px) {
+  .card-content img {
+    max-width: 300px;
+  }
+  .card-content h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-content img {
+    max-width: 250px;
+  }
+  .card-content h3 {
+    font-size: 0.9rem;
+  }
 }
