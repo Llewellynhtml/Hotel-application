@@ -8,6 +8,7 @@ import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
 import { db, auth } from '../config/firebase'; // Ensure auth is imported
 import { useDispatch } from 'react-redux';
 import { addUserBookings } from '../Redux/dbslice';
+import axios from 'axios'; // Import Axios
 
 const PaymentMethod = ({ selectedRoomId }) => {
   const [paymentType, setPaymentType] = useState('');
@@ -43,6 +44,20 @@ const PaymentMethod = ({ selectedRoomId }) => {
     fetchRoomData();
   }, [selectedRoomId]);
 
+  const sendConfirmationEmail = async (email, bookingDetails) => {
+    try {
+      const response = await axios.post('https://email-server-pw87.onrender.com/send-email', {
+        to: 'Llewellyn.ml.info@gmail.com',  // Email to send the confirmation to
+        subject: 'Booking Confirmation',
+        text: `Thank you for booking with us. Here are your booking details:\n\n${JSON.stringify(bookingDetails, null, 2)}`,
+      });
+      console.log('Email sent successfully:', response.data);
+    } catch (error) {
+      console.error('Error sending email:', error);
+      setNotification('Failed to send confirmation email. Please check your booking details.');
+    }
+  };
+
   const handleCardSubmit = async (e) => {
     e.preventDefault();
 
@@ -51,12 +66,23 @@ const PaymentMethod = ({ selectedRoomId }) => {
       return;
     }
 
-    setNotification('Your booking has been reserved!');
-    
-    const bookingData = location.state; 
+    const user = auth.currentUser;
+    if (!user) {
+      setNotification('User not authenticated.');
+      return;
+    }
 
-    
+    const bookingData = {
+      ...location.state,
+      roomDetails: selectedRoom,
+      paymentType: 'Card',
+    };
+
+    setNotification('Your booking has been reserved!');
     dispatch(addUserBookings(bookingData));
+
+    // Send confirmation email
+    await sendConfirmationEmail(user.email, bookingData);
 
     setTimeout(() => {
       resetForm();
@@ -99,9 +125,18 @@ const PaymentMethod = ({ selectedRoomId }) => {
       {paymentType === 'paypal' && (
         <PayPalButtons
           onApprove={(data, actions) => {
-            return actions.order.capture().then((details) => {
+            return actions.order.capture().then(async (details) => {
               setNotification(`Transaction completed by ${details.payer.name.given_name}`);
-              dispatch(addUserBookings(location.state)); 
+              const user = auth.currentUser;
+              if (user) {
+                const bookingData = {
+                  ...location.state,
+                  roomDetails: selectedRoom,
+                  paymentType: 'PayPal',
+                };
+                dispatch(addUserBookings(bookingData));
+                await sendConfirmationEmail(user.email, bookingData);
+              }
               setTimeout(() => {
                 navigate('/rooms');
               }, 2000);

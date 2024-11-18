@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link for navigation
+import { useNavigate, Link } from 'react-router-dom'; 
 import { signInStart, signInSuccess, signInFailure } from '../Redux/authSlice';
 import { auth, db } from '../config/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
-import './signin.css'; // Update as needed for styling
+import './signin.css'; 
 import logo from '../One&Only 1.png'; 
 
 const Signin = () => {
