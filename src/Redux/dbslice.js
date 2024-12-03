@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getDocs, collection, addDoc, setDoc, doc, query, where } from "firebase/firestore";
+import { getDocs, collection, setDoc, doc, addDoc, query, where } from "firebase/firestore"; 
 import { db, auth } from "../config/firebase";
 
 const initialState = {
   data: [],
   userBookings: [],
+  userReviews: [],
   loading: false,
   error: null,
-  userLikedRooms: []
+  userLikedRooms: [],
 };
 
 const dataSlice = createSlice({
@@ -30,16 +31,44 @@ const dataSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+    setUserReviews(state, action) {
+      state.userReviews = action.payload;
+      state.loading = false;
+    },
     addBookingToState(state, action) {
       state.data.push(action.payload);
     },
     setuserLikedRooms(state, action) {
-      state.userLikedRooms.push(action.payload); 
+      state.userLikedRooms.push(action.payload);
     }
   },
 });
 
-export const { setLoading, setData, setError, addBookingToState, setUserBookings, setuserLikedRooms } = dataSlice.actions;
+export const { setLoading, setData, setError, setUserReviews, addBookingToState, setUserBookings, setuserLikedRooms } = dataSlice.actions;
+
+export const fetchUserReviews = () => async (dispatch) => {
+  const uid = auth.currentUser?.uid;
+  dispatch(setLoading(true));
+
+  try {
+    const reviewsRef = collection(db, "userReviews");
+    const querySnapshot = await getDocs(reviewsRef);
+    const reviews = querySnapshot.docs.map((doc) => {
+      const reviewData = doc.data();
+      if (reviewData.timestamp) {
+        reviewData.timestamp = reviewData.timestamp.toDate();
+      }
+      return {
+        id: doc.id,
+        ...reviewData,
+      };
+    });
+    dispatch(setUserReviews(reviews));
+  } catch (error) {
+    dispatch(setError(error.message));
+  }
+};
+
 export default dataSlice.reducer;
 
 

@@ -1,21 +1,24 @@
 import React from 'react';
 import './footer.css';
 import logs from './data/One&OnlyN ITALIC B.png';
-// FontAwesome imports
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXTwitter, faFacebookF, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import ReviewForm from './ReviewForm';  
+
+import ReviewSection from './ReviewSection';  
 
 const Footer = () => {
   return (
     <div>
       <footer className="footer-hero">
         <div className="footer-container">
-          {/* Logo on the left */}
+        
           <div className="footer-logo">
             <img src={logs} alt="One&Only Cape Town Logo" />
           </div>
 
-          {/* Footer links on the right */}
+        
           <div className="footer-links">
             <div className="footer-section">
               <h3>Resort Information</h3>
@@ -44,6 +47,7 @@ const Footer = () => {
               <h3>Kerzner</h3>
               <ul>
                 <li><a href="#">Careers</a></li>
+                <ReviewForm />
               </ul>
             </div>
           </div>
@@ -51,8 +55,11 @@ const Footer = () => {
 
         <hr />
 
+        
+        <ReviewSection />  
+
         <div className="footer-social">
-          <h3 className='HS3'>Follow Us</h3>
+          <h3 className="HS3">Follow Us</h3>
           <ul className="social-icons">
             <li>
               <a href="#" aria-label="X">
